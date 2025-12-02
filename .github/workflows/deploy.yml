@@ -3,11 +3,9 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - main
       - master
   pull_request:
     branches:
-      - main
       - master
 
 jobs:
@@ -36,14 +34,37 @@ jobs:
         env:
           DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
           TARGET_REPO: ${{ secrets.TARGET_REPO }}
-          TARGET_BRANCH: ${{ secrets.TARGET_BRANCH || 'gh-pages' }}
+          TARGET_BRANCH: ${{ secrets.TARGET_BRANCH || 'main' }}
         run: |
-          cd build
-          git init
+          # Clone target repository
+          git clone --branch $TARGET_BRANCH --single-branch https://x-access-token:$DEPLOY_TOKEN@github.com/$TARGET_REPO.git target-repo 2>/dev/null || \
+          git clone --single-branch https://x-access-token:$DEPLOY_TOKEN@github.com/$TARGET_REPO.git target-repo
+          
+          cd target-repo
+          
+          # Checkout target branch or create it if it doesn't exist
+          git checkout $TARGET_BRANCH 2>/dev/null || git checkout -b $TARGET_BRANCH
+          
+          # Configure git
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git remote add origin https://x-access-token:$DEPLOY_TOKEN@github.com/$TARGET_REPO.git
+          
+          # Remove all existing files (except .git)
+          find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
+          
+          # Copy build files to target repository
+          cp -r ../build/* .
+          cp -r ../build/.[!.]* . 2>/dev/null || true
+          
+          # Add all changes
           git add .
-          git commit -m "Deploy from ${{ github.repository }}@${{ github.sha }}"
-          git push -f --quiet origin HEAD:$TARGET_BRANCH
+          
+          # Commit changes with original commit message
+          COMMIT_MSG="${{ github.event.head_commit.message }}"
+          git commit -m "$COMMIT_MSG" || echo "No changes to commit"
+          
+          # Push changes
+          git push origin $TARGET_BRANCH
+          
+          echo "✅ Deployment successful to $TARGET_REPO:$TARGET_BRANCH"
 
