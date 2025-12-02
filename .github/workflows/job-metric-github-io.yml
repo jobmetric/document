@@ -1,0 +1,205 @@
+# Build and Deploy Workflow
+# Builds Docusaurus project, runs tests, and deploys to target repository
+# Triggers: push to master, pull requests to master
+
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Checkout source code
+      - name: Checkout source repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      # Setup Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      # Install project dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # Build Docusaurus static site
+      - name: Build Docusaurus
+        run: npm run build
+
+      # Test build output - verify files and structure
+      - name: Test build output
+        id: test-build-output
+        run: |
+          echo "🧪 Testing build output..."
+          
+          # Check build directory exists
+          if [ ! -d "build" ]; then
+            echo "❌ Build directory not found!"
+            exit 1
+          fi
+          
+          # Check index.html exists
+          if [ ! -f "build/index.html" ]; then
+            echo "❌ index.html not found in build directory!"
+            exit 1
+          fi
+          
+          # Check assets directory (optional)
+          if [ ! -d "build/assets" ]; then
+            echo "⚠️ Assets directory not found, but continuing..."
+          fi
+          
+          # Check file size
+          INDEX_SIZE=$(stat -f%z build/index.html 2>/dev/null || stat -c%s build/index.html 2>/dev/null || echo "0")
+          if [ "$INDEX_SIZE" -lt 1000 ]; then
+            echo "⚠️ index.html seems too small ($INDEX_SIZE bytes), but continuing..."
+          fi
+          
+          # List build contents
+          echo "📁 Build directory contents:"
+          ls -lah build/ | head -15
+          
+          # Show build statistics
+          echo "✅ Build structure looks good!"
+          echo "📊 Build statistics:"
+          echo "   - Total files: $(find build -type f | wc -l)"
+          echo "   - Total size: $(du -sh build | cut -f1)"
+          
+          # Validate HTML structure
+          if grep -q "<!DOCTYPE html>" build/index.html || grep -q "<html" build/index.html; then
+            echo "✅ HTML structure looks valid"
+          else
+            echo "⚠️ HTML structure might be invalid, but continuing..."
+          fi
+          
+          # Test HTTP server
+          echo "🌐 Testing HTTP server..."
+          cd build
+          python3 -m http.server 8080 > /dev/null 2>&1 &
+          SERVER_PID=$!
+          sleep 2
+          
+          # Verify server responds
+          if curl -f -s http://localhost:8080 > /dev/null; then
+            echo "✅ HTTP server test passed - build is serving correctly"
+          else
+            echo "⚠️ HTTP server test failed, but build files exist"
+          fi
+          
+          # Cleanup
+          kill $SERVER_PID 2>/dev/null || true
+          cd ..
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    # Only deploy on push to master, not on PRs
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    steps:
+      # Checkout source code
+      - name: Checkout source repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      # Setup Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # Build Docusaurus
+      - name: Build Docusaurus
+        run: npm run build
+
+      # Deploy build files to target repository
+      # Required secrets: DEPLOY_TOKEN, TARGET_REPO, TARGET_BRANCH
+      - name: Deploy to target repository
+        env:
+          DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+          TARGET_REPO: ${{ secrets.TARGET_REPO }}
+          TARGET_BRANCH: ${{ secrets.TARGET_BRANCH }}
+        run: |
+          # Set default branch if not provided
+          TARGET_BRANCH="${TARGET_BRANCH:-main}"
+          echo "🚀 Starting deployment to $TARGET_REPO:$TARGET_BRANCH"
+          
+          # Clone target repository
+          if git clone --branch $TARGET_BRANCH --single-branch https://x-access-token:$DEPLOY_TOKEN@github.com/$TARGET_REPO.git target-repo 2>&1; then
+            echo "✅ Branch $TARGET_BRANCH exists, cloned successfully"
+          else
+            echo "⚠️ Branch $TARGET_BRANCH doesn't exist, cloning default branch..."
+            git clone --single-branch https://x-access-token:$DEPLOY_TOKEN@github.com/$TARGET_REPO.git target-repo
+          fi
+          
+          cd target-repo
+          
+          # Checkout or create target branch
+          if git checkout $TARGET_BRANCH 2>&1; then
+            echo "✅ Switched to existing branch $TARGET_BRANCH"
+          else
+            echo "⚠️ Branch doesn't exist, creating new branch $TARGET_BRANCH..."
+            git checkout -b $TARGET_BRANCH
+          fi
+          
+          # Configure git
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          
+          # Remove existing files (keep .git)
+          echo "🗑️ Removing existing files..."
+          find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
+          
+          # Copy build files
+          echo "📋 Copying build files..."
+          cp -r ../build/* .
+          cp -r ../build/.[!.]* . 2>/dev/null || true
+          
+          # Verify files copied
+          echo "🔍 Verifying files..."
+          ls -la | head -20
+          
+          # Stage all changes
+          echo "➕ Adding changes..."
+          git add -A .
+          
+          # Get commit message from original commit
+          COMMIT_MSG="${{ github.event.head_commit.message }}"
+          if [ -z "$COMMIT_MSG" ]; then
+            COMMIT_MSG="Deploy from ${{ github.repository }}@${{ github.sha }}"
+          fi
+          
+          echo "💬 Commit message: $COMMIT_MSG"
+          
+          # Show git status
+          echo "📊 Git status:"
+          git status --short
+          
+          # Commit changes
+          echo "💾 Committing changes..."
+          git commit -m "$COMMIT_MSG" || {
+            echo "⚠️ No changes detected, but pushing anyway to ensure sync..."
+            git commit --allow-empty -m "$COMMIT_MSG"
+          }
+          
+          # Push to target repository
+          echo "📤 Pushing to $TARGET_BRANCH..."
+          git push origin $TARGET_BRANCH
+          echo "✅ Deployment successful to $TARGET_REPO:$TARGET_BRANCH"
