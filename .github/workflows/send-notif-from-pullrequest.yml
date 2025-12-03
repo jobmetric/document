@@ -1,8 +1,3 @@
-# Telegram Notifications Workflow
-# Sends Telegram notifications for PRs and workflow completion
-# Triggers: new pull requests, workflow completion
-# Required secrets: TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, TELEGRAM_CHANNEL_LINK (optional)
-
 name: Telegram Notifications
 
 on:
@@ -19,12 +14,8 @@ on:
 jobs:
   notify:
     runs-on: ubuntu-latest
-    # Skip if workflow was cancelled
-    if: github.event_name == 'pull_request' || github.event.workflow_run.conclusion != 'cancelled'
     steps:
-      # Send notification for new pull requests
       - name: Send Telegram notification on PR
-        if: github.event_name == 'pull_request'
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
