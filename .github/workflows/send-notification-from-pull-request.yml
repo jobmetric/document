@@ -11,7 +11,7 @@ on:
 jobs:
   # PR notification job - runs when PR is opened, reopened, or ready for review
   notify-pr:
-    uses: jobmetric/github-notify/.github/workflows/telegram-pull-request-notify.yml@main
+    uses: jobmetric/github-notify/.github/workflows/telegram-pull-request-notify.yml@master
     secrets:
       bot_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       chat_id: ${{ secrets.TELEGRAM_CHAT_ID }}
