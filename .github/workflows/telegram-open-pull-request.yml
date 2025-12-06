@@ -8,7 +8,6 @@ on:
 
 jobs:
   notify-pr:
-    environment: job_metric
     uses: jobmetric/github-notify/.github/workflows/telegram-open-pull-request-notify.yml@master
     secrets:
       bot_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
