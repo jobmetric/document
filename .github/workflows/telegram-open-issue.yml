@@ -1,0 +1,13 @@
+name: Telegram Open Issue Notifications
+
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+  notify-issue:
+    uses: jobmetric/github-notify/.github/workflows/telegram-open-issue-notify.yml@master
+    secrets:
+      bot_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      chat_id: ${{ secrets.TELEGRAM_CHAT_ID }}
