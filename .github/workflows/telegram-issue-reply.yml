@@ -7,7 +7,9 @@ on:
 
 jobs:
   notify-reply:
-    uses: jobmetric/github-notify/.github/workflows/telegram-issue-reply-notify.yml@master
+    uses: jobmetric/github-notify/.github/workflows/telegram-issue-reply-notify.yml@master\
+    inputs:
+    date_format: jalali
     secrets:
       bot_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       chat_id: ${{ secrets.TELEGRAM_CHAT_ID }}
