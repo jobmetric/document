@@ -5,9 +5,9 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
-  favicon: 'img/favicon.ico',
+  title: 'JobMetric Document',
+  tagline: 'JobMetric Document Site',
+  favicon: 'img/favicon.svg',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -15,15 +15,15 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
+  url: 'https://jobmetric.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'JobMetric', // Usually your GitHub org/user name.
+  projectName: 'JobMetric Document', // Usually your repo name.
 
   onBrokenLinks: 'throw',
 
@@ -43,8 +43,7 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          editUrl: 'https://github.com/jobmetric/document/',
         },
         blog: {
           showReadingTime: true,
@@ -54,8 +53,7 @@ const config: Config = {
           },
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          editUrl: 'https://github.com/jobmetric/document/',
           // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
@@ -67,6 +65,18 @@ const config: Config = {
       } satisfies Preset.Options,
     ],
   ],
+  plugins: [
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'packages',
+        path: 'packages',
+        routeBasePath: 'packages',
+        sidebarPath: './sidebars.ts',
+        editUrl: 'https://github.com/jobmetric/document/',
+      },
+    ],
+  ],
 
   themeConfig: {
     // Replace with your project's social card
@@ -75,9 +85,9 @@ const config: Config = {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: 'My Site',
+      title: 'JobMetric Document',
       logo: {
-        alt: 'My Site Logo',
+        alt: 'JobMetric Logo',
         src: 'img/logo.svg',
       },
       items: [
@@ -85,11 +95,18 @@ const config: Config = {
           type: 'docSidebar',
           sidebarId: 'tutorialSidebar',
           position: 'left',
-          label: 'Tutorial',
+          label: 'Intro',
+        },
+        {
+          type: 'docSidebar',
+          docsPluginId: 'packages',
+          sidebarId: 'packagesSidebar',
+          position: 'left',
+          label: 'Packages',
         },
         {to: '/blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/jobmetric',
           label: 'GitHub',
           position: 'right',
         },
@@ -102,8 +119,12 @@ const config: Config = {
           title: 'Docs',
           items: [
             {
-              label: 'Tutorial',
+              label: 'Why Job Metric?',
               to: '/docs/intro',
+            },
+            {
+              label: 'Packages',
+              to: '/packages/intro',
             },
           ],
         },
@@ -111,16 +132,16 @@ const config: Config = {
           title: 'Community',
           items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
+              label: 'Github',
+              href: 'https://github.com/jobmetric',
             },
             {
               label: 'X',
-              href: 'https://x.com/docusaurus',
+              href: 'https://x.com/jobmetric',
+            },
+            {
+              label: 'Stack Overflow',
+              href: 'https://stackoverflow.com/questions/tagged/jobmetric',
             },
           ],
         },
@@ -133,12 +154,12 @@ const config: Config = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://github.com/jobmetric',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Job Metric.`,
     },
     prism: {
       theme: prismThemes.github,
