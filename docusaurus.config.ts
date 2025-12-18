@@ -105,6 +105,7 @@ const config: Config = {
           label: 'Packages',
         },
         {to: '/blog', label: 'Blog', position: 'left'},
+        {to: '/team', label: 'Team', position: 'right'},
         {
           href: 'https://github.com/jobmetric',
           label: 'GitHub',
