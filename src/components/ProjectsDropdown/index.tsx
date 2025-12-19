@@ -1,4 +1,5 @@
 import React, {useState, useRef} from 'react';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './styles.module.css';
 
 interface ProjectItem {
@@ -19,6 +20,7 @@ const projects: ProjectItem[] = [
 export default function ProjectsDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const baseUrl = useBaseUrl('/');
 
   const handleItemClick = (docId: string, e: React.MouseEvent) => {
     e.preventDefault();
@@ -88,7 +90,7 @@ export default function ProjectsDropdown() {
                     onClick={(e) => handleItemClick(project.docId, e)}>
                     {project.image && (
                       <img
-                        src={project.image}
+                        src={baseUrl + project.image.replace(/^\//, '')}
                         alt={project.label}
                         className={styles.projectImage}
                       />
