@@ -39,12 +39,7 @@ const config: Config = {
     [
       'classic',
       {
-        docs: {
-          sidebarPath: './sidebars.ts',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/jobmetric/document/',
-        },
+        docs: false,
         blog: {
           showReadingTime: true,
           feedOptions: {
@@ -65,7 +60,19 @@ const config: Config = {
       } satisfies Preset.Options,
     ],
   ],
+  clientModules: [require.resolve('./src/clientModules/projectsDropdown.tsx')],
   plugins: [
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'projects',
+        path: 'projects',
+        routeBasePath: 'projects',
+        sidebarPath: './sidebars.ts',
+        sidebarCollapsible: true,
+        editUrl: 'https://github.com/jobmetric/document/',
+      },
+    ],
     [
       '@docusaurus/plugin-content-docs',
       {
@@ -92,10 +99,9 @@ const config: Config = {
       },
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
+          type: 'html',
           position: 'left',
-          label: 'Intro',
+          value: '<div id="projects-dropdown-container"></div>',
         },
         {
           type: 'docSidebar',
@@ -120,8 +126,8 @@ const config: Config = {
           title: 'Docs',
           items: [
             {
-              label: 'Why Job Metric?',
-              to: '/docs/intro',
+              label: 'Projects',
+              to: '/projects/intro',
             },
             {
               label: 'Packages',
