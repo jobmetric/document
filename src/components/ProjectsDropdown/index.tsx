@@ -9,12 +9,12 @@ interface ProjectItem {
 }
 
 const projects: ProjectItem[] = [
-  {label: 'Findr', docId: 'findr', image: '/img/docusaurus-social-card.jpg'},
-  {label: 'Hero', docId: 'hero', image: '/img/docusaurus-social-card.jpg'},
-  {label: 'Huma', docId: 'huma', image: '/img/docusaurus-social-card.jpg'},
-  {label: 'Selora', docId: 'selora', image: '/img/docusaurus-social-card.jpg'},
-  {label: 'Vibe', docId: 'vibe', image: '/img/docusaurus-social-card.jpg'},
-  {label: 'Pax', docId: 'pax', image: '/img/docusaurus-social-card.jpg'},
+  {label: 'Findr', docId: 'findr', image: 'img/docusaurus-social-card.jpg'},
+  {label: 'Hero', docId: 'hero', image: 'img/docusaurus-social-card.jpg'},
+  {label: 'Huma', docId: 'huma', image: 'img/docusaurus-social-card.jpg'},
+  {label: 'Selora', docId: 'selora', image: 'img/docusaurus-social-card.jpg'},
+  {label: 'Vibe', docId: 'vibe', image: 'img/docusaurus-social-card.jpg'},
+  {label: 'Pax', docId: 'pax', image: 'img/docusaurus-social-card.jpg'},
 ];
 
 export default function ProjectsDropdown() {
@@ -82,23 +82,26 @@ export default function ProjectsDropdown() {
           onMouseLeave={handleMouseLeave}>
           <div className={styles.dropdownWrapper}>
             <ul className={styles.dropdownList}>
-              {projects.map((project, index) => (
-                <li key={index} className={styles.dropdownItem}>
-                  <a
-                    className={styles.dropdownLink}
-                    href={`/projects/${project.docId}`}
-                    onClick={(e) => handleItemClick(project.docId, e)}>
-                    {project.image && (
-                      <img
-                        src={baseUrl + project.image.replace(/^\//, '')}
-                        alt={project.label}
-                        className={styles.projectImage}
-                      />
-                    )}
-                    <span className={styles.projectLabel}>{project.label}</span>
-                  </a>
-                </li>
-              ))}
+              {projects.map((project, index) => {
+                const imageUrl = project.image ? useBaseUrl(project.image) : null;
+                return (
+                  <li key={index} className={styles.dropdownItem}>
+                    <a
+                      className={styles.dropdownLink}
+                      href={`/projects/${project.docId}`}
+                      onClick={(e) => handleItemClick(project.docId, e)}>
+                      {imageUrl && (
+                        <img
+                          src={imageUrl}
+                          alt={project.label}
+                          className={styles.projectImage}
+                        />
+                      )}
+                      <span className={styles.projectLabel}>{project.label}</span>
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
