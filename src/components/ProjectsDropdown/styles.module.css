@@ -1,0 +1,214 @@
+.dropdownContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdownContainer::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: transparent;
+  z-index: 10000;
+}
+
+.dropdownButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: none;
+  border: none;
+  color: var(--ifm-navbar-link-color);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  position: relative;
+  padding-right: 1.25rem;
+}
+
+.dropdownButton:hover {
+  color: var(--ifm-color-primary);
+}
+
+.dropdownArrow {
+  position: absolute;
+  right: 0.25rem;
+  top: 50%;
+  transform: translateY(-50%) rotate(0deg);
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  opacity: 0.7;
+}
+
+.dropdownArrow.arrowOpen {
+  transform: translateY(-50%) rotate(180deg);
+  opacity: 1;
+}
+
+.dropdownMenu {
+  position: fixed;
+  top: var(--ifm-navbar-height, 60px);
+  left: 0;
+  right: 0;
+  width: 100vw;
+  padding: 2.5rem 0;
+  padding-top: 2.5rem;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
+  border-radius: 0;
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: none;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+  background: #ffffff;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+  transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.05s,
+              visibility 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.05s,
+              transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.05s;
+  pointer-events: none;
+}
+
+.dropdownMenu {
+  transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.05s,
+              visibility 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.05s,
+              transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.05s;
+}
+
+.dropdownMenu::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: transparent;
+}
+
+.dropdownContainer:hover .dropdownMenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+  transition: opacity 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              visibility 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.dropdownMenu:hover {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+  transition: opacity 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              visibility 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.dropdownWrapper {
+  max-width: 1320px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  box-sizing: border-box;
+}
+
+.dropdownList {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdownItem {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdownLink {
+  display: block;
+  padding: 0.75rem 0;
+  color: var(--ifm-font-color-base);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.5;
+  transition: color 0.15s ease;
+  text-decoration: none;
+  border: none;
+  background: none;
+  border-radius: 0;
+  position: relative;
+}
+
+.dropdownLink:hover {
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+  background: none;
+  transform: none;
+  box-shadow: none;
+  border: none;
+}
+
+[data-theme='dark'] .dropdownMenu {
+  background: #1e1e1e;
+}
+
+@media (min-width: 992px) and (max-width: 1399px) {
+  .dropdownWrapper {
+    max-width: 1140px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  .dropdownList {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .dropdownWrapper {
+    max-width: 720px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  .dropdownList {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .dropdownMenu {
+    padding: 1.5rem 0;
+  }
+  
+  .dropdownWrapper {
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .dropdownList {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  
+  .dropdownLink {
+    padding: 0.625rem 0;
+  }
+}
+
