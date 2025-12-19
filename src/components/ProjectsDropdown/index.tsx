@@ -4,15 +4,16 @@ import styles from './styles.module.css';
 interface ProjectItem {
   label: string;
   docId: string;
+  image?: string;
 }
 
 const projects: ProjectItem[] = [
-  {label: 'Findr', docId: 'findr'},
-  {label: 'Hero', docId: 'hero'},
-  {label: 'Huma', docId: 'huma'},
-  {label: 'Selora', docId: 'selora'},
-  {label: 'Vibe', docId: 'vibe'},
-  {label: 'Pax', docId: 'pax'},
+  {label: 'Findr', docId: 'findr', image: '/img/docusaurus-social-card.jpg'},
+  {label: 'Hero', docId: 'hero', image: '/img/docusaurus-social-card.jpg'},
+  {label: 'Huma', docId: 'huma', image: '/img/docusaurus-social-card.jpg'},
+  {label: 'Selora', docId: 'selora', image: '/img/docusaurus-social-card.jpg'},
+  {label: 'Vibe', docId: 'vibe', image: '/img/docusaurus-social-card.jpg'},
+  {label: 'Pax', docId: 'pax', image: '/img/docusaurus-social-card.jpg'},
 ];
 
 export default function ProjectsDropdown() {
@@ -85,7 +86,14 @@ export default function ProjectsDropdown() {
                     className={styles.dropdownLink}
                     href={`/projects/${project.docId}`}
                     onClick={(e) => handleItemClick(project.docId, e)}>
-                    {project.label}
+                    {project.image && (
+                      <img
+                        src={project.image}
+                        alt={project.label}
+                        className={styles.projectImage}
+                      />
+                    )}
+                    <span className={styles.projectLabel}>{project.label}</span>
                   </a>
                 </li>
               ))}
