@@ -21,6 +21,11 @@ export default function ProjectsDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const baseUrl = useBaseUrl('/');
+  
+  const projectsWithImages = projects.map(project => ({
+    ...project,
+    imageUrl: project.image ? useBaseUrl(project.image) : null,
+  }));
 
   const handleItemClick = (docId: string, e: React.MouseEvent) => {
     e.preventDefault();
@@ -49,10 +54,15 @@ export default function ProjectsDropdown() {
     setIsOpen(true);
   };
 
-  const handleMouseLeave = () => {
-    closeTimeoutRef.current = setTimeout(() => {
-      setIsOpen(false);
-    }, 200);
+  const handleMouseLeave = (e: React.MouseEvent) => {
+    const target = e.currentTarget as HTMLElement;
+    const relatedTarget = e.relatedTarget as HTMLElement;
+    
+    if (!relatedTarget || !target.contains(relatedTarget)) {
+      closeTimeoutRef.current = setTimeout(() => {
+        setIsOpen(false);
+      }, 500);
+    }
   };
 
   return (
@@ -78,30 +88,37 @@ export default function ProjectsDropdown() {
       {isOpen && (
         <div 
           className={styles.dropdownMenu}
-          onMouseEnter={handleMouseEnter}
+          data-open={isOpen}
+          onMouseEnter={(e) => {
+            e.stopPropagation();
+            handleMouseEnter();
+          }}
           onMouseLeave={handleMouseLeave}>
           <div className={styles.dropdownWrapper}>
             <ul className={styles.dropdownList}>
-              {projects.map((project, index) => {
-                const imageUrl = project.image ? useBaseUrl(project.image) : null;
-                return (
-                  <li key={index} className={styles.dropdownItem}>
-                    <a
-                      className={styles.dropdownLink}
-                      href={`/projects/${project.docId}`}
-                      onClick={(e) => handleItemClick(project.docId, e)}>
-                      {imageUrl && (
-                        <img
-                          src={imageUrl}
-                          alt={project.label}
-                          className={styles.projectImage}
-                        />
-                      )}
-                      <span className={styles.projectLabel}>{project.label}</span>
-                    </a>
-                  </li>
-                );
-              })}
+              {projectsWithImages.map((project, index) => (
+                <li key={index} className={styles.dropdownItem}>
+                  <a
+                    className={styles.dropdownLink}
+                    href={`/projects/${project.docId}`}
+                    onClick={(e) => handleItemClick(project.docId, e)}
+                    onMouseEnter={() => {
+                      if (closeTimeoutRef.current) {
+                        clearTimeout(closeTimeoutRef.current);
+                        closeTimeoutRef.current = null;
+                      }
+                    }}>
+                    {project.imageUrl && (
+                      <img
+                        src={project.imageUrl}
+                        alt={project.label}
+                        className={styles.projectImage}
+                      />
+                    )}
+                    <span className={styles.projectLabel}>{project.label}</span>
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
