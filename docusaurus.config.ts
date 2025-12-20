@@ -5,8 +5,8 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'JobMetric Document',
-  tagline: 'JobMetric Document Site',
+  title: 'JobMetric',
+  tagline: 'Powerful Laravel packages and tools for developers',
   favicon: 'img/favicon.svg',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -23,7 +23,7 @@ const config: Config = {
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'JobMetric', // Usually your GitHub org/user name.
-  projectName: 'JobMetric Document', // Usually your repo name.
+  projectName: 'JobMetric', // Usually your repo name.
 
   onBrokenLinks: 'throw',
 
@@ -60,7 +60,10 @@ const config: Config = {
       } satisfies Preset.Options,
     ],
   ],
-  clientModules: [require.resolve('./src/clientModules/projectsDropdown.tsx')],
+  clientModules: [
+    require.resolve('./src/clientModules/projectsDropdown.tsx'),
+    require.resolve('./src/clientModules/customFooter.tsx'),
+  ],
   plugins: [
     [
       '@docusaurus/plugin-content-docs',
@@ -92,7 +95,7 @@ const config: Config = {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: 'JobMetric Document',
+      title: 'JobMetric',
       logo: {
         alt: 'JobMetric Logo',
         src: 'img/logo.svg',

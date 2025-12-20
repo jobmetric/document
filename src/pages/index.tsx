@@ -3,7 +3,12 @@ import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
-import HomepageFeatures from '@site/src/components/HomepageFeatures';
+import StatsSection from '@site/src/components/StatsSection';
+import PackagesShowcase from '@site/src/components/PackagesShowcase';
+import TestimonialsSection from '@site/src/components/TestimonialsSection';
+import BlogPreviewSection from '@site/src/components/BlogPreviewSection';
+import ContactInfoSection from '@site/src/components/ContactInfoSection';
+import NewsletterSection from '@site/src/components/NewsletterSection';
 import Heading from '@theme/Heading';
 
 import styles from './index.module.css';
@@ -37,7 +42,12 @@ export default function Home(): ReactNode {
       description="Description will go into a meta tag in <head />">
       <HomepageHeader />
       <main>
-        <HomepageFeatures />
+        <PackagesShowcase />
+        <TestimonialsSection />
+        <BlogPreviewSection />
+        <StatsSection />
+        <ContactInfoSection />
+        <NewsletterSection />
       </main>
     </Layout>
   );
