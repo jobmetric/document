@@ -70,7 +70,7 @@ const config: Config = {
         routeBasePath: 'projects',
         sidebarPath: './sidebars.ts',
         sidebarCollapsible: true,
-        editUrl: 'https://github.com/jobmetric/document/',
+        editUrl: 'https://github.com/jobmetric/document/blob/master/',
       },
     ],
     [
@@ -80,7 +80,7 @@ const config: Config = {
         path: 'packages',
         routeBasePath: 'packages',
         sidebarPath: './sidebars.ts',
-        editUrl: 'https://github.com/jobmetric/document/',
+        editUrl: 'https://github.com/jobmetric/document/blob/master/',
       },
     ],
   ],
