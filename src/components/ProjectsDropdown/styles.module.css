@@ -23,7 +23,7 @@
   border: none;
   color: var(--ifm-navbar-link-color);
   font-size: 0.9375rem;
-  font-weight: 500;
+  font-weight: var(--ifm-font-weight-semibold);
   cursor: pointer;
   transition: color 0.2s ease;
   position: relative;
