@@ -60,7 +60,7 @@ export default function PackagesShowcase() {
               <p className="text-gray-600 dark:text-gray-300 mb-4">
                 {pkg.description}
               </p>
-              <div className="text-primary dark:text-primary-light font-semibold group-hover:underline">
+              <div className="text-primary dark:text-primary-light font-semibold">
                 Learn more →
               </div>
             </Link>

@@ -124,52 +124,7 @@ const config: Config = {
     },
     footer: {
       style: 'dark',
-      links: [
-        {
-          title: 'Docs',
-          items: [
-            {
-              label: 'Projects',
-              to: '/projects/intro',
-            },
-            {
-              label: 'Packages',
-              to: '/packages/intro',
-            },
-          ],
-        },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'Github',
-              href: 'https://github.com/jobmetric',
-            },
-            {
-              label: 'X',
-              href: 'https://x.com/jobmetric',
-            },
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/jobmetric',
-            },
-          ],
-        },
-        {
-          title: 'More',
-          items: [
-            {
-              label: 'Blog',
-              to: '/blog',
-            },
-            {
-              label: 'GitHub',
-              href: 'https://github.com/jobmetric',
-            },
-          ],
-        },
-      ],
-      copyright: `Copyright © ${new Date().getFullYear()} Job Metric.`,
+      copyright: `© ${new Date().getFullYear()} JobMetric.`,
     },
     prism: {
       theme: prismThemes.github,

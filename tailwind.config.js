@@ -4,6 +4,7 @@ module.exports = {
     './src/**/*.{js,jsx,ts,tsx,md,mdx}',
     './docusaurus.config.ts',
   ],
+  darkMode: ['selector', '[data-theme="dark"]'],
   theme: {
     extend: {
       colors: {

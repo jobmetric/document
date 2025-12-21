@@ -41,3 +41,49 @@
 }
 
 /* Custom Projects Dropdown - All styles are in ProjectsDropdown component styles.module.css */
+
+/* Remove underline from all links globally */
+a {
+  text-decoration: none !important;
+}
+
+a:hover {
+  text-decoration: none !important;
+}
+
+a:focus {
+  text-decoration: none !important;
+}
+
+a:visited {
+  text-decoration: none !important;
+}
+
+/* Only allow underline if explicitly added with class */
+a.underline,
+.underline a {
+  text-decoration: underline !important;
+}
+
+/* Minimal footer styling for Docusaurus */
+footer.footer {
+  padding: 0.5rem 0 !important;
+  background: transparent !important;
+}
+
+footer.footer .footer__links {
+  display: none !important;
+}
+
+footer.footer .footer__copyright {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--ifm-color-content-secondary);
+  padding: 0;
+  margin: 0;
+}
+
+/* Hide default footer on homepage and show custom one */
+body[data-page-type="home"] footer.footer {
+  display: none !important;
+}
