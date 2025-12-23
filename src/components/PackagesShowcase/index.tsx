@@ -10,9 +10,9 @@ interface Package {
 
 const packages: Package[] = [
   {
-    name: 'JobMetric',
-    description: 'A powerful job management system for Laravel applications',
-    link: '/packages/jobmetric/intro',
+    name: 'Laravel Flow',
+    description: 'Workflow management system for creating different workflows in your Laravel projects',
+    link: '/packages/laravel-flow/intro',
     badge: 'Popular',
   },
   {
@@ -41,7 +41,7 @@ export default function PackagesShowcase() {
             Discover our collection of powerful Laravel packages designed to boost your productivity
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {packages.map((pkg, index) => (
             <Link
@@ -66,7 +66,7 @@ export default function PackagesShowcase() {
             </Link>
           ))}
         </div>
-        
+
         <div className="text-center mt-12">
           <Link
             to="/packages/intro"

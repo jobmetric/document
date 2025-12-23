@@ -1,7 +1,6 @@
 {
-  "label": "JobMetric",
-  "position": 1,
+  "label": "Laravel Flow",
+  "position": 10,
   "collapsible": true,
   "collapsed": false
 }
-
