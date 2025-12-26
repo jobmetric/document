@@ -1,5 +1,5 @@
 ---
-sidebar_position: 2
+sidebar_position: 1
 sidebar_label: HasWorkflow
 ---
 
@@ -1683,4 +1683,15 @@ if (!$order->boundFlow()) {
     throw new \Exception('Order must have a workflow');
 }
 ```
+
+## Related Documentation
+
+- [HasFlow](/packages/laravel-flow/deep-diving/has-flow) - Simple flow binding for single-flow scenarios
+- [FlowPickerBuilder](/packages/laravel-flow/deep-diving/support/flow-picker-builder) - Customizing flow selection logic
+- [FlowPicker](/packages/laravel-flow/deep-diving/support/flow-picker) - Understanding flow picking mechanism
+- [Flow Service](/packages/laravel-flow/deep-diving/services/flow) - Managing workflows
+- [FlowState Service](/packages/laravel-flow/deep-diving/services/flow-state) - Managing states
+- [FlowTransition Service](/packages/laravel-flow/deep-diving/services/flow-transition) - Executing transitions
+- [TransitionResult](/packages/laravel-flow/deep-diving/transition-result) - Understanding transition results
+- [Installation](/packages/laravel-flow/installation) - Package installation guide
 

@@ -648,7 +648,10 @@ FlowState::store($flowId, [
 
 ## Related Documentation
 
-- [FlowState Service](/packages/laravel-flow/deep-diving/services/flow-state) - Learn about flow state management
-- [HasWorkflow Trait](/packages/laravel-flow/deep-diving/has-workflow) - Learn about workflow integration
-- [Flow Service](/packages/laravel-flow/deep-diving/services/flow) - Learn about flow management
+- [FlowState Service](/packages/laravel-flow/deep-diving/services/flow-state) - State management
+- [StoreFlowStateRequest](/packages/laravel-flow/deep-diving/requests/store-flow-state-request) - State creation validation
+- [UpdateFlowStateRequest](/packages/laravel-flow/deep-diving/requests/update-flow-state-request) - State update validation
+- [HasWorkflow](/packages/laravel-flow/deep-diving/has-workflow) - Workflow integration trait
+- [HasFlow](/packages/laravel-flow/deep-diving/has-flow) - Simple flow binding trait
+- [Flow Service](/packages/laravel-flow/deep-diving/services/flow) - Flow management
 

@@ -236,5 +236,7 @@ return FlowUseResource::collection($history);
 ## Related Documentation
 
 - [FlowResource](/packages/laravel-flow/deep-diving/resources/flow-resource) - Flow resource
-- [Flow Service](/packages/laravel-flow/deep-diving/services/flow) - Learn about flow management
+- [Flow Service](/packages/laravel-flow/deep-diving/services/flow) - Flow management
+- [HasWorkflow](/packages/laravel-flow/deep-diving/has-workflow) - Workflow integration
+- [HasFlow](/packages/laravel-flow/deep-diving/has-flow) - Simple flow binding
 

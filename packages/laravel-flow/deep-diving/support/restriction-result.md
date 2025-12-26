@@ -2094,8 +2094,10 @@ if (error.code === 'RATE_LIMIT_EXCEEDED') {
 
 ## Related Documentation
 
-- [FlowTaskContext](/packages/laravel-flow/deep-diving/support/flow-task-context) - Learn about task context
-- [FlowTransition Service](/packages/laravel-flow/deep-diving/services/flow-transition) - Learn about transitions
-- [FlowTask Service](/packages/laravel-flow/deep-diving/services/flow-task) - Learn about task management
-- [MakeTask Command](/packages/laravel-flow/deep-diving/make-task) - Learn about generating tasks
+- [FlowTaskContext](/packages/laravel-flow/deep-diving/support/flow-task-context) - Task execution context
+- [TransitionResult](/packages/laravel-flow/deep-diving/transition-result) - Transition result DTO
+- [FlowTransition Service](/packages/laravel-flow/deep-diving/services/flow-transition) - Transition execution
+- [FlowTask Service](/packages/laravel-flow/deep-diving/services/flow-task) - Task management
+- [MakeTask Command](/packages/laravel-flow/deep-diving/make-task) - Generating task drivers
+- [FlowTaskRegistry](/packages/laravel-flow/deep-diving/support/flow-task-registry) - Task driver registry
 

@@ -275,7 +275,9 @@ $rules = StoreFlowStateRequest::rulesFor($input, $context);
 
 ## Related Documentation
 
-- [FlowState Service](/packages/laravel-flow/deep-diving/services/flow-state) - Learn about state management
+- [FlowState Service](/packages/laravel-flow/deep-diving/services/flow-state) - State management
 - [UpdateFlowStateRequest](/packages/laravel-flow/deep-diving/requests/update-flow-state-request) - State update validation
+- [FlowStateResource](/packages/laravel-flow/deep-diving/resources/flow-state-resource) - State JSON resource
 - [CheckStatusInDriverRule](/packages/laravel-flow/deep-diving/rules/check-status-in-driver-rule) - Status validation rule
+- [Events](/packages/laravel-flow/deep-diving/events) - State lifecycle events
 

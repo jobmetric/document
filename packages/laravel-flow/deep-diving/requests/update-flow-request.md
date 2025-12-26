@@ -300,6 +300,8 @@ public function update(UpdateFlowRequest $request, $id)
 
 ## Related Documentation
 
-- [Flow Service](/packages/laravel-flow/deep-diving/services/flow) - Learn about flow management
+- [Flow Service](/packages/laravel-flow/deep-diving/services/flow) - Flow management
 - [StoreFlowRequest](/packages/laravel-flow/deep-diving/requests/store-flow-request) - Flow creation validation
+- [FlowResource](/packages/laravel-flow/deep-diving/resources/flow-resource) - Flow JSON resource
+- [Events](/packages/laravel-flow/deep-diving/events) - Flow lifecycle events
 

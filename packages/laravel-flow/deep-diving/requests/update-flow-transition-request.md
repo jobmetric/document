@@ -270,7 +270,9 @@ $requestData = [
 
 ## Related Documentation
 
-- [FlowTransition Service](/packages/laravel-flow/deep-diving/services/flow-transition) - Learn about transition management
+- [FlowTransition Service](/packages/laravel-flow/deep-diving/services/flow-transition) - Transition management
 - [StoreFlowTransitionRequest](/packages/laravel-flow/deep-diving/requests/store-flow-transition-request) - Transition creation validation
-- [FlowState Service](/packages/laravel-flow/deep-diving/services/flow-state) - Learn about states
+- [FlowTransitionResource](/packages/laravel-flow/deep-diving/resources/flow-transition-resource) - Transition JSON resource
+- [FlowState Service](/packages/laravel-flow/deep-diving/services/flow-state) - State management
+- [Events](/packages/laravel-flow/deep-diving/events) - Transition lifecycle events
 

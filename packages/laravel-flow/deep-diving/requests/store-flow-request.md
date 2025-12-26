@@ -278,7 +278,9 @@ public function store(StoreFlowRequest $request)
 
 ## Related Documentation
 
-- [Flow Service](/packages/laravel-flow/deep-diving/services/flow) - Learn about flow management
+- [Flow Service](/packages/laravel-flow/deep-diving/services/flow) - Flow management
 - [UpdateFlowRequest](/packages/laravel-flow/deep-diving/requests/update-flow-request) - Flow update validation
+- [FlowResource](/packages/laravel-flow/deep-diving/resources/flow-resource) - Flow JSON resource
 - [FlowPickerBuilder](/packages/laravel-flow/deep-diving/support/flow-picker-builder) - Flow selection logic
+- [Events](/packages/laravel-flow/deep-diving/events) - Flow lifecycle events
 

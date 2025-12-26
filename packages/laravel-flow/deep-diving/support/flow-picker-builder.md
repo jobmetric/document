@@ -2515,7 +2515,8 @@ protected function buildFlowPicker(FlowPickerBuilder $builder): void
 
 ## Related Documentation
 
-- [FlowPicker](/packages/laravel-flow/deep-diving/support/flow-picker) - Learn about flow selection
-- [HasWorkflow Trait](/packages/laravel-flow/deep-diving/has-workflow) - Learn about workflow integration
-- [Flow Service](/packages/laravel-flow/deep-diving/services/flow) - Learn about flow management
+- [FlowPicker](/packages/laravel-flow/deep-diving/support/flow-picker) - Flow selection mechanism
+- [HasWorkflow](/packages/laravel-flow/deep-diving/has-workflow) - Workflow integration trait
+- [Flow Service](/packages/laravel-flow/deep-diving/services/flow) - Flow management
+- [HasFlow](/packages/laravel-flow/deep-diving/has-flow) - Simple flow binding
 

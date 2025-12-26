@@ -771,8 +771,10 @@ Event::assertDispatched(FlowUpdateEvent::class);
 
 ## Related Documentation
 
-- [Flow Service](/packages/laravel-flow/deep-diving/services/flow) - Learn about flow management
-- [FlowState Service](/packages/laravel-flow/deep-diving/services/flow-state) - Learn about state management
-- [FlowTask Service](/packages/laravel-flow/deep-diving/services/flow-task) - Learn about task management
-- [FlowTransition Service](/packages/laravel-flow/deep-diving/services/flow-transition) - Learn about transition management
+- [Flow Service](/packages/laravel-flow/deep-diving/services/flow) - Flow management
+- [FlowState Service](/packages/laravel-flow/deep-diving/services/flow-state) - State management
+- [FlowTask Service](/packages/laravel-flow/deep-diving/services/flow-task) - Task management
+- [FlowTransition Service](/packages/laravel-flow/deep-diving/services/flow-transition) - Transition management
+- [StoreFlowRequest](/packages/laravel-flow/deep-diving/requests/store-flow-request) - Flow creation validation
+- [UpdateFlowRequest](/packages/laravel-flow/deep-diving/requests/update-flow-request) - Flow update validation
 

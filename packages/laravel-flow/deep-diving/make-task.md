@@ -612,7 +612,12 @@ foreach ($tasks as $task) {
 
 ## Related Documentation
 
-- [FlowTask Service](/packages/laravel-flow/deep-diving/services/flow-task) - Learn about managing tasks
-- [HasWorkflow Trait](/packages/laravel-flow/deep-diving/has-workflow) - Learn about workflow integration
-- [FlowTransition Service](/packages/laravel-flow/deep-diving/services/flow-transition) - Learn about transitions
+- [FlowTask Service](/packages/laravel-flow/deep-diving/services/flow-task) - Managing tasks
+- [FlowTaskRegistry](/packages/laravel-flow/deep-diving/support/flow-task-registry) - Registering task drivers
+- [FlowTaskContext](/packages/laravel-flow/deep-diving/support/flow-task-context) - Task execution context
+- [FlowTransition Service](/packages/laravel-flow/deep-diving/services/flow-transition) - Executing transitions
+- [HasWorkflow](/packages/laravel-flow/deep-diving/has-workflow) - Workflow integration trait
+- [HasFlow](/packages/laravel-flow/deep-diving/has-flow) - Simple flow binding trait
+- [RestrictionResult](/packages/laravel-flow/deep-diving/support/restriction-result) - Restriction task results
+- [TransitionResult](/packages/laravel-flow/deep-diving/transition-result) - Transition execution results
 

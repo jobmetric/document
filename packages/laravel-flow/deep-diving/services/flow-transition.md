@@ -394,3 +394,16 @@ $toStateId = $transition->to;
 $slug = $transition->slug;
 ```
 
+## Related Documentation
+
+- [StoreFlowTransitionRequest](/packages/laravel-flow/deep-diving/requests/store-flow-transition-request) - Validation for transition creation
+- [UpdateFlowTransitionRequest](/packages/laravel-flow/deep-diving/requests/update-flow-transition-request) - Validation for transition updates
+- [FlowTransitionResource](/packages/laravel-flow/deep-diving/resources/flow-transition-resource) - JSON resource for transitions
+- [FlowTransition Service](/packages/laravel-flow/deep-diving/services/flow-transition) - Managing transitions
+- [FlowState Service](/packages/laravel-flow/deep-diving/services/flow-state) - Managing states
+- [FlowTask Service](/packages/laravel-flow/deep-diving/services/flow-task) - Managing tasks
+- [TransitionResult](/packages/laravel-flow/deep-diving/transition-result) - Transition execution result
+- [FlowTaskContext](/packages/laravel-flow/deep-diving/support/flow-task-context) - Task execution context
+- [RestrictionResult](/packages/laravel-flow/deep-diving/support/restriction-result) - Restriction task result
+- [Events](/packages/laravel-flow/deep-diving/events) - Transition lifecycle events
+

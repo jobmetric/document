@@ -378,7 +378,9 @@ The registry is used by `FlowTransition` service to:
 
 ## Related Documentation
 
-- [FlowTask Service](/packages/laravel-flow/deep-diving/services/flow-task) - Learn about task management
-- [MakeTask Command](/packages/laravel-flow/deep-diving/make-task) - Learn about generating tasks
-- [FlowTransition Service](/packages/laravel-flow/deep-diving/services/flow-transition) - Learn about transitions
+- [FlowTask Service](/packages/laravel-flow/deep-diving/services/flow-task) - Task management
+- [MakeTask Command](/packages/laravel-flow/deep-diving/make-task) - Generating task drivers
+- [FlowTaskContext](/packages/laravel-flow/deep-diving/support/flow-task-context) - Task execution context
+- [FlowTransition Service](/packages/laravel-flow/deep-diving/services/flow-transition) - Transition execution
+- [StoreFlowTaskRequest](/packages/laravel-flow/deep-diving/requests/store-flow-task-request) - Task validation
 

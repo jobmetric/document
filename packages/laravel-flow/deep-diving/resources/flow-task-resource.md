@@ -252,7 +252,8 @@ The `config` property contains driver-specific configuration:
 
 ## Related Documentation
 
-- [FlowTask Service](/packages/laravel-flow/deep-diving/services/flow-task) - Learn about task management
+- [FlowTask Service](/packages/laravel-flow/deep-diving/services/flow-task) - Task management
 - [FlowTransitionResource](/packages/laravel-flow/deep-diving/resources/flow-transition-resource) - Transition resource
 - [FlowResource](/packages/laravel-flow/deep-diving/resources/flow-resource) - Flow resource
+- [FlowTaskContext](/packages/laravel-flow/deep-diving/support/flow-task-context) - Task execution context
 

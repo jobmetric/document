@@ -305,4 +305,7 @@ This allows custom resource transformation for different morph types.
 - [FlowTransitionResource](/packages/laravel-flow/deep-diving/resources/flow-transition-resource) - Transition resource
 - [FlowStateResource](/packages/laravel-flow/deep-diving/resources/flow-state-resource) - State resource
 - [FlowResource](/packages/laravel-flow/deep-diving/resources/flow-resource) - Flow resource
+- [FlowTransition Service](/packages/laravel-flow/deep-diving/services/flow-transition) - Transition execution
+- [HasWorkflow](/packages/laravel-flow/deep-diving/has-workflow) - Workflow integration
+- [HasFlow](/packages/laravel-flow/deep-diving/has-flow) - Simple flow binding
 

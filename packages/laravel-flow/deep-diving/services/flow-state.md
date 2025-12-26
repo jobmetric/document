@@ -280,3 +280,13 @@ $config = $state->config;
 $translations = $state->getTranslations();
 ```
 
+## Related Documentation
+
+- [StoreFlowStateRequest](/packages/laravel-flow/deep-diving/requests/store-flow-state-request) - Validation for state creation
+- [UpdateFlowStateRequest](/packages/laravel-flow/deep-diving/requests/update-flow-state-request) - Validation for state updates
+- [FlowStateResource](/packages/laravel-flow/deep-diving/resources/flow-state-resource) - JSON resource for states
+- [Flow Service](/packages/laravel-flow/deep-diving/services/flow) - Managing workflows
+- [FlowTransition Service](/packages/laravel-flow/deep-diving/services/flow-transition) - Managing transitions
+- [CheckStatusInDriverRule](/packages/laravel-flow/deep-diving/rules/check-status-in-driver-rule) - Status validation rule
+- [Events](/packages/laravel-flow/deep-diving/events) - State lifecycle events
+

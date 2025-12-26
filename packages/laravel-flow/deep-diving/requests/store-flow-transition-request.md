@@ -314,7 +314,9 @@ $rules = StoreFlowTransitionRequest::rulesFor($input, $context);
 
 ## Related Documentation
 
-- [FlowTransition Service](/packages/laravel-flow/deep-diving/services/flow-transition) - Learn about transition management
+- [FlowTransition Service](/packages/laravel-flow/deep-diving/services/flow-transition) - Transition management
 - [UpdateFlowTransitionRequest](/packages/laravel-flow/deep-diving/requests/update-flow-transition-request) - Transition update validation
-- [FlowState Service](/packages/laravel-flow/deep-diving/services/flow-state) - Learn about states
+- [FlowTransitionResource](/packages/laravel-flow/deep-diving/resources/flow-transition-resource) - Transition JSON resource
+- [FlowState Service](/packages/laravel-flow/deep-diving/services/flow-state) - State management
+- [Events](/packages/laravel-flow/deep-diving/events) - Transition lifecycle events
 

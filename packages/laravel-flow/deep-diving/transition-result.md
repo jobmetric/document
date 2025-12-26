@@ -1,5 +1,5 @@
 ---
-sidebar_position: 5
+sidebar_position: 9
 sidebar_label: TransitionResult DTO
 ---
 
@@ -761,7 +761,10 @@ if ($result->isSuccess()) {
 
 ## Related Documentation
 
-- [FlowTransition Service](/packages/laravel-flow/deep-diving/services/flow-transition) - Learn about transition execution
-- [FlowTask Service](/packages/laravel-flow/deep-diving/services/flow-task) - Learn about task management
-- [FlowTaskContext](/packages/laravel-flow/deep-diving/support/flow-task-context) - Learn about task context
+- [FlowTransition Service](/packages/laravel-flow/deep-diving/services/flow-transition) - Transition execution
+- [FlowTaskContext](/packages/laravel-flow/deep-diving/support/flow-task-context) - Task execution context
+- [RestrictionResult](/packages/laravel-flow/deep-diving/support/restriction-result) - Restriction task results
+- [FlowTask Service](/packages/laravel-flow/deep-diving/services/flow-task) - Task management
+- [HasWorkflow](/packages/laravel-flow/deep-diving/has-workflow) - Workflow integration
+- [HasFlow](/packages/laravel-flow/deep-diving/has-flow) - Simple flow binding
 

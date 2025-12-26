@@ -122,5 +122,6 @@ public function reorder(ReorderFlowRequest $request)
 
 ## Related Documentation
 
-- [Flow Service](/packages/laravel-flow/deep-diving/services/flow) - Learn about flow management and reordering
+- [Flow Service](/packages/laravel-flow/deep-diving/services/flow) - Flow management and reordering
+- [FlowResource](/packages/laravel-flow/deep-diving/resources/flow-resource) - Flow JSON resource
 

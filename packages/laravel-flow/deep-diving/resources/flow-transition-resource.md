@@ -337,7 +337,9 @@ Both `from` and `to` are specified:
 
 ## Related Documentation
 
-- [FlowTransition Service](/packages/laravel-flow/deep-diving/services/flow-transition) - Learn about transition management
+- [FlowTransition Service](/packages/laravel-flow/deep-diving/services/flow-transition) - Transition management
 - [FlowStateResource](/packages/laravel-flow/deep-diving/resources/flow-state-resource) - State resource
 - [FlowTaskResource](/packages/laravel-flow/deep-diving/resources/flow-task-resource) - Task resource
+- [FlowResource](/packages/laravel-flow/deep-diving/resources/flow-resource) - Flow resource
+- [FlowInstanceResource](/packages/laravel-flow/deep-diving/resources/flow-instance-resource) - Instance resource
 

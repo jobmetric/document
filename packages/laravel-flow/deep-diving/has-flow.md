@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 sidebar_label: HasFlow
 ---
 
@@ -1005,4 +1005,13 @@ $flow = Flow::store([
 // Use this flow ID in your flowId() method
 // Or store it in config: config(['flows.order_flow_id' => $flow->id]);
 ```
+
+## Related Documentation
+
+- [HasWorkflow](/packages/laravel-flow/deep-diving/has-workflow) - Advanced workflow binding with dynamic selection
+- [Flow Service](/packages/laravel-flow/deep-diving/services/flow) - Managing workflows
+- [FlowState Service](/packages/laravel-flow/deep-diving/services/flow-state) - Managing states
+- [FlowTransition Service](/packages/laravel-flow/deep-diving/services/flow-transition) - Executing transitions
+- [TransitionResult](/packages/laravel-flow/deep-diving/transition-result) - Understanding transition results
+- [Installation](/packages/laravel-flow/installation) - Package installation guide
 

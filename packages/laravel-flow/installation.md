@@ -48,5 +48,7 @@ php artisan migrate
 After installation, you can:
 
 - Check out the [Showcase](/packages/laravel-flow/showcase) to see real-world examples
-- Start creating your first workflow by reading the documentation
+- Learn about [HasFlow](/packages/laravel-flow/deep-diving/has-flow) and [HasWorkflow](/packages/laravel-flow/deep-diving/has-workflow) traits to integrate workflows into your models
+- Explore the [Services](/packages/laravel-flow/deep-diving/services/flow) for managing flows, states, tasks, and transitions
+- Read the [Getting Started](/packages/laravel-flow/intro) guide for an overview
 

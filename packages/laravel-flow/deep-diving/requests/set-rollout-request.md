@@ -231,6 +231,7 @@ Roll out flows to specific regions gradually:
 
 ## Related Documentation
 
-- [Flow Service](/packages/laravel-flow/deep-diving/services/flow) - Learn about flow management and rollout
+- [Flow Service](/packages/laravel-flow/deep-diving/services/flow) - Flow management and rollout
 - [FlowPickerBuilder](/packages/laravel-flow/deep-diving/support/flow-picker-builder) - Flow selection with rollout
+- [HasWorkflow](/packages/laravel-flow/deep-diving/has-workflow) - Workflow integration with rollout
 

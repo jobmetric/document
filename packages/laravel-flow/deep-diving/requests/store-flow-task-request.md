@@ -279,8 +279,10 @@ The request includes custom validation in `withValidator()`:
 
 ## Related Documentation
 
-- [FlowTask Service](/packages/laravel-flow/deep-diving/services/flow-task) - Learn about task management
+- [FlowTask Service](/packages/laravel-flow/deep-diving/services/flow-task) - Task management
 - [UpdateFlowTaskRequest](/packages/laravel-flow/deep-diving/requests/update-flow-task-request) - Task update validation
+- [FlowTaskResource](/packages/laravel-flow/deep-diving/resources/flow-task-resource) - Task JSON resource
 - [FlowTaskRegistry](/packages/laravel-flow/deep-diving/support/flow-task-registry) - Driver registration
 - [MakeTask Command](/packages/laravel-flow/deep-diving/make-task) - Creating task drivers
+- [Events](/packages/laravel-flow/deep-diving/events) - Task lifecycle events
 

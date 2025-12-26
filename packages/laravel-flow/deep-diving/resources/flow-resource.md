@@ -273,7 +273,10 @@ This ensures interoperability across different clients and timezones.
 
 ## Related Documentation
 
-- [Flow Service](/packages/laravel-flow/deep-diving/services/flow) - Learn about flow management
+- [Flow Service](/packages/laravel-flow/deep-diving/services/flow) - Flow management
 - [FlowStateResource](/packages/laravel-flow/deep-diving/resources/flow-state-resource) - State resource
 - [FlowTransitionResource](/packages/laravel-flow/deep-diving/resources/flow-transition-resource) - Transition resource
+- [FlowTaskResource](/packages/laravel-flow/deep-diving/resources/flow-task-resource) - Task resource
+- [FlowInstanceResource](/packages/laravel-flow/deep-diving/resources/flow-instance-resource) - Instance resource
+- [FlowUseResource](/packages/laravel-flow/deep-diving/resources/flow-use-resource) - Usage resource
 

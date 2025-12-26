@@ -211,7 +211,9 @@ $requestData = [
 
 ## Related Documentation
 
-- [FlowState Service](/packages/laravel-flow/deep-diving/services/flow-state) - Learn about state management
+- [FlowState Service](/packages/laravel-flow/deep-diving/services/flow-state) - State management
 - [StoreFlowStateRequest](/packages/laravel-flow/deep-diving/requests/store-flow-state-request) - State creation validation
+- [FlowStateResource](/packages/laravel-flow/deep-diving/resources/flow-state-resource) - State JSON resource
 - [CheckStatusInDriverRule](/packages/laravel-flow/deep-diving/rules/check-status-in-driver-rule) - Status validation rule
+- [Events](/packages/laravel-flow/deep-diving/events) - State lifecycle events
 

@@ -283,7 +283,8 @@ $state = FlowState::with([
 
 ## Related Documentation
 
-- [FlowState Service](/packages/laravel-flow/deep-diving/services/flow-state) - Learn about state management
+- [FlowState Service](/packages/laravel-flow/deep-diving/services/flow-state) - State management
 - [FlowResource](/packages/laravel-flow/deep-diving/resources/flow-resource) - Flow resource
 - [FlowTransitionResource](/packages/laravel-flow/deep-diving/resources/flow-transition-resource) - Transition resource
+- [FlowTaskResource](/packages/laravel-flow/deep-diving/resources/flow-task-resource) - Task resource
 

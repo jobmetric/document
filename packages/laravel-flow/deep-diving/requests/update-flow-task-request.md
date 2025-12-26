@@ -244,7 +244,9 @@ $requestData = [
 
 ## Related Documentation
 
-- [FlowTask Service](/packages/laravel-flow/deep-diving/services/flow-task) - Learn about task management
+- [FlowTask Service](/packages/laravel-flow/deep-diving/services/flow-task) - Task management
 - [StoreFlowTaskRequest](/packages/laravel-flow/deep-diving/requests/store-flow-task-request) - Task creation validation
+- [FlowTaskResource](/packages/laravel-flow/deep-diving/resources/flow-task-resource) - Task JSON resource
 - [FlowTaskRegistry](/packages/laravel-flow/deep-diving/support/flow-task-registry) - Driver registration
+- [Events](/packages/laravel-flow/deep-diving/events) - Task lifecycle events
 

@@ -1599,8 +1599,10 @@ $actionTask->handle($context);           // Can read result from all previous ta
 
 ## Related Documentation
 
-- [TransitionResult DTO](/packages/laravel-flow/deep-diving/transition-result) - Learn about result object
-- [RestrictionResult](/packages/laravel-flow/deep-diving/support/restriction-result) - Learn about restriction results
-- [FlowTransition Service](/packages/laravel-flow/deep-diving/services/flow-transition) - Learn about transitions
-- [MakeTask Command](/packages/laravel-flow/deep-diving/make-task) - Learn about generating tasks
+- [TransitionResult](/packages/laravel-flow/deep-diving/transition-result) - Transition result DTO
+- [RestrictionResult](/packages/laravel-flow/deep-diving/support/restriction-result) - Restriction task results
+- [FlowTransition Service](/packages/laravel-flow/deep-diving/services/flow-transition) - Transition execution
+- [FlowTaskRegistry](/packages/laravel-flow/deep-diving/support/flow-task-registry) - Task driver registry
+- [MakeTask Command](/packages/laravel-flow/deep-diving/make-task) - Generating task drivers
+- [FlowTask Service](/packages/laravel-flow/deep-diving/services/flow-task) - Task management
 

@@ -344,7 +344,8 @@ $flow = (new FlowPicker())->pick($this, $builder);
 
 ## Related Documentation
 
-- [FlowPickerBuilder](/packages/laravel-flow/deep-diving/support/flow-picker-builder) - Learn about configuring the builder
-- [HasWorkflow Trait](/packages/laravel-flow/deep-diving/has-workflow) - Learn about workflow integration
-- [Flow Service](/packages/laravel-flow/deep-diving/services/flow) - Learn about flow management
+- [FlowPickerBuilder](/packages/laravel-flow/deep-diving/support/flow-picker-builder) - Configuring flow selection
+- [HasWorkflow](/packages/laravel-flow/deep-diving/has-workflow) - Workflow integration trait
+- [Flow Service](/packages/laravel-flow/deep-diving/services/flow) - Flow management
+- [HasFlow](/packages/laravel-flow/deep-diving/has-flow) - Simple flow binding
 

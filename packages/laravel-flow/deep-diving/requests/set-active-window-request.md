@@ -223,6 +223,7 @@ Set flows that are no longer active:
 
 ## Related Documentation
 
-- [Flow Service](/packages/laravel-flow/deep-diving/services/flow) - Learn about flow management
+- [Flow Service](/packages/laravel-flow/deep-diving/services/flow) - Flow management
 - [StoreFlowRequest](/packages/laravel-flow/deep-diving/requests/store-flow-request) - Flow creation with active window
+- [UpdateFlowRequest](/packages/laravel-flow/deep-diving/requests/update-flow-request) - Flow update validation
 
