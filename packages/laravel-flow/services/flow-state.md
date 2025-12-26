@@ -1,6 +1,6 @@
 ---
 sidebar_position: 2
-sidebar_label: FlowState Service
+sidebar_label: FlowState
 ---
 
 # FlowState Service

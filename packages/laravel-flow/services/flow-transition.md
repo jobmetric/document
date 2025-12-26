@@ -1,6 +1,6 @@
 ---
 sidebar_position: 4
-sidebar_label: FlowTransition Service
+sidebar_label: FlowTransition
 ---
 
 # FlowTransition Service

@@ -1,6 +1,6 @@
 ---
 sidebar_position: 1
-sidebar_label: Flow Service
+sidebar_label: Flow
 ---
 
 # Flow Service

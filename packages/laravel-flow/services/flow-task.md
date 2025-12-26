@@ -1,6 +1,6 @@
 ---
 sidebar_position: 3
-sidebar_label: FlowTask Service
+sidebar_label: FlowTask
 ---
 
 # FlowTask Service
