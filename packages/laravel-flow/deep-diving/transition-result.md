@@ -763,5 +763,5 @@ if ($result->isSuccess()) {
 
 - [FlowTransition Service](/packages/laravel-flow/deep-diving/services/flow-transition) - Learn about transition execution
 - [FlowTask Service](/packages/laravel-flow/deep-diving/services/flow-task) - Learn about task management
-- [FlowTaskContext](/packages/laravel-flow/deep-diving/flow-task-context) - Learn about task context
+- [FlowTaskContext](/packages/laravel-flow/deep-diving/support/flow-task-context) - Learn about task context
 
