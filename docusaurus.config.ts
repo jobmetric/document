@@ -60,6 +60,10 @@ const config: Config = {
       } satisfies Preset.Options,
     ],
   ],
+  themes: ['@docusaurus/theme-mermaid'],
+  markdown: {
+    mermaid: true,
+  },
   clientModules: [
     require.resolve('./src/clientModules/projectsDropdown.tsx'),
     require.resolve('./src/clientModules/customFooter.tsx'),
@@ -129,6 +133,9 @@ const config: Config = {
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
+    },
+    mermaid: {
+      theme: {light: 'default', dark: 'dark'},
     },
   } satisfies Preset.ThemeConfig,
 };

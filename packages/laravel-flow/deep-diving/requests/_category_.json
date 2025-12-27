@@ -1,6 +1,6 @@
 {
-  "label": "JobMetric",
-  "position": 1,
+  "label": "Requests",
+  "position": 6,
   "collapsible": true,
   "collapsed": false
 }
