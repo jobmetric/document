@@ -1,0 +1,147 @@
+---
+sidebar_position: 1
+sidebar_label: Getting Started
+---
+
+import Link from "@docusaurus/Link";
+
+# Build Multilingual Applications. Effortlessly.
+
+**Laravel Translation** is a powerful package that simplifies the management of multilingual content within Laravel applications. It offers dynamic translation storage, retrieval, and updates, seamlessly integrating with your models through the `HasTranslation` trait. Stop managing translations manually and start building truly multilingual applications with ease.
+
+## Why Laravel Translation?
+
+### Seamless Model Integration
+
+Laravel Translation integrates directly with your Eloquent models through a simple trait. No complex setup, no additional services—just add the trait and define which fields should be translatable. Your models become multilingual instantly.
+
+### Flexible Field Control
+
+You have complete control over which fields can be translated. Whitelist specific fields or allow all fields with a simple configuration. This flexibility ensures you only translate what needs to be translated, keeping your database clean and efficient.
+
+### Version History Built-In
+
+Track every change to your translations with optional versioning. See what changed, when it changed, and restore previous versions if needed. Perfect for content management systems where translation history matters.
+
+### Powerful Query Capabilities
+
+Search and filter your models based on translated content. Find products by their translated names, filter posts by translated titles, and build multilingual search functionality with ease.
+
+### Simple, Intuitive API
+
+The package provides an intuitive API that feels natural to Laravel developers. Create, read, update, and delete translations with simple methods that work exactly as you'd expect.
+
+## What is Translation Management?
+
+Translation management is the process of storing and retrieving content in multiple languages. In a traditional Laravel application, you might store translations in language files or use separate columns for each language. Laravel Translation takes a different approach:
+
+- **Database-Driven**: Translations are stored in the database, making them dynamic and manageable through your application
+- **Per-Field Translations**: Each field can have different translations for different locales
+- **Version Control**: Track changes to translations over time
+- **Query Support**: Search and filter by translated content directly in your queries
+
+## Key Features
+
+### Custom Validation
+
+Ensures translation data integrity with flexible rules and error handling. Validate translations just like any other model attribute.
+
+### Model Integration
+
+Supports multi-language attributes with versioning, soft deletes, and event-driven updates. Works seamlessly with all Eloquent features.
+
+### API Resources
+
+Provides structured serialization for translation data, facilitating clean API responses. Transform your models with translations included.
+
+### Extensible Architecture
+
+Includes custom exceptions, event handling, and dynamic translation management for scalable localization. Extend and customize as needed.
+
+### Query Support
+
+Enables scope queries and relationship management for efficient multilingual data handling. Find models by their translated content.
+
+### Language Files
+
+Centralized language files for consistent, maintainable multilingual user communication. Keep your validation messages and UI text organized.
+
+## Quick Example
+
+See how easy it is to make your models multilingual:
+
+```php
+use Illuminate\Database\Eloquent\Model;
+use JobMetric\Translation\HasTranslation;
+
+class Post extends Model
+{
+    use HasTranslation;
+
+    protected array $translatables = ['title', 'summary', 'body'];
+    protected bool $translationVersioning = true;
+}
+
+// Create with translations
+$post = Post::create([
+    'slug' => 'hello-world',
+    'translation' => [
+        'en' => [
+            'title' => 'Hello World',
+            'summary' => 'My first post',
+        ],
+        'fa' => [
+            'title' => 'سلام دنیا',
+            'summary' => 'اولین پست من',
+        ],
+    ],
+]);
+
+// Retrieve translations
+echo $post->getTranslation('title', 'fa');  // سلام دنیا
+echo $post->getTranslation('title', 'en');  // Hello World
+```
+
+## What Awaits You?
+
+By adopting Laravel Translation, you will:
+
+- **Build truly multilingual applications** - Support as many languages as you need
+- **Simplify translation management** - No more complex translation logic in your code
+- **Improve content management** - Version history and easy updates
+- **Enhance user experience** - Deliver content in users' preferred languages
+- **Scale effortlessly** - Handle translations for thousands of models and fields
+- **Maintain clean code** - Simple, intuitive API that follows Laravel conventions
+
+## Ready to Get Started?
+
+Stop waiting. Laravel Translation is ready to elevate your projects to a new level of multilingual support and efficiency.
+
+<div className="grid grid-cols-2 gap-4 sm:gap-6 mt-6 sm:mt-8">
+  <Link
+    to="/packages/laravel-translation/installation"
+    className="group bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-lg transition-all duration-300"
+  >
+    <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">⚙️</div>
+    <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors mb-2">
+      Installation
+    </h3>
+    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+      Install and configure Laravel Translation in your project
+    </p>
+  </Link>
+
+  <Link
+    to="/packages/laravel-translation/deep-diving/has-translation"
+    className="group bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-lg transition-all duration-300"
+  >
+    <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">🚀</div>
+    <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors mb-2">
+      Quick Start
+    </h3>
+    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+      Start with HasTranslation for multilingual models
+    </p>
+  </Link>
+</div>
+
