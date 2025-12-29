@@ -1,0 +1,121 @@
+---
+sidebar_position: 1
+sidebar_label: Getting Started
+---
+
+import Link from "@docusaurus/Link";
+
+# Manage .env Files. Safely and Easily.
+
+**Laravel Env Modifier** is a lightweight, framework-friendly utility that simplifies working with `.env` files in Laravel applications. It provides a clean API to create, read, merge, update, back up, restore, and delete `.env` files safely and predictably—perfect for deployment scripts, environment management, and configuration automation.
+
+## Why Laravel Env Modifier?
+
+### Safe File Operations
+
+Laravel Env Modifier uses atomic writes with `LOCK_EX` to prevent race conditions when multiple processes access the same `.env` file. It also includes protection mechanisms to prevent accidental deletion of your main application `.env` file.
+
+### Smart Value Handling
+
+The package automatically handles value normalization, escaping, and quoting. It intelligently quotes values containing spaces, special characters, or newlines, and properly handles booleans, arrays, and JSON data.
+
+### Preserves Comments and Formatting
+
+Unlike many `.env` manipulation tools, Laravel Env Modifier preserves comments and blank lines in your `.env` files. It only modifies the specific keys you target, leaving the rest of your file structure intact.
+
+### Multiple File Support
+
+Work with multiple `.env` files simultaneously. Create environment-specific files (`.env.staging`, `.env.testing`), merge configurations from templates, and manage different environments without code changes.
+
+### Helper Functions
+
+The package includes convenient global helper functions that intentionally avoid naming conflicts with Laravel's built-in `env()` function, making it easy to use throughout your application.
+
+## What is Env File Management?
+
+Env file management is the process of programmatically reading, writing, and modifying environment configuration files. Traditional approaches often involve manual editing or fragile string manipulation, but Laravel Env Modifier provides a robust, safe solution:
+
+- **Atomic Operations**: All file writes use exclusive locks to prevent corruption
+- **Key-Level Operations**: Read, write, rename, and delete individual keys without affecting others
+- **File-Level Operations**: Create, backup, restore, and delete entire `.env` files
+- **Merge Capabilities**: Combine configurations from multiple files with filtering options
+- **Value Normalization**: Automatically handles quoting, escaping, and type conversion
+
+## Key Features
+
+### File Operations
+
+Create new `.env` files, back up existing ones with timestamps, restore from backups, merge configurations from other files, and safely delete files with main `.env` protection.
+
+### Key Operations
+
+Read all keys or specific ones, set/update values, set defaults only if missing, rename keys, delete keys, and check key existence—all while preserving comments and formatting.
+
+### Value Normalization
+
+Automatically handles:
+- **Booleans**: `true`/`false` → `"true"`/`"false"`
+- **Arrays/Objects**: JSON-encoded automatically
+- **Quoting**: Auto-quotes values with spaces, `#`, `=`, or whitespace
+- **Newlines**: Escaped as `\n` for storage, restored on read
+- **Comments**: Preserved and ignored during parsing
+
+### Atomic Writes
+
+All file operations use `LOCK_EX` to ensure data integrity when multiple processes access the same file simultaneously.
+
+### Regex Safety
+
+Keys are automatically escaped with `preg_quote` to prevent regex injection vulnerabilities when matching patterns.
+
+## Quick Example
+
+Here's a quick example of how easy it is to work with `.env` files:
+
+```php
+use JobMetric\EnvModifier\Facades\EnvModifier as EnvMod;
+
+// Create a new environment file
+EnvMod::createFile(base_path('.env.staging'), [
+    'APP_NAME' => 'My Staging App',
+    'APP_ENV' => 'staging',
+    'APP_DEBUG' => false,
+], overwrite: false, bindToPath: true);
+
+// Update values
+EnvMod::set([
+    'APP_NAME' => 'Updated App Name',
+    'CACHE_DRIVER' => 'redis',
+]);
+
+// Read values
+$values = EnvMod::get('APP_NAME', 'APP_ENV', 'CACHE_DRIVER');
+// => ['APP_NAME' => 'Updated App Name', 'APP_ENV' => 'staging', 'CACHE_DRIVER' => 'redis']
+
+// Set defaults only if missing
+EnvMod::setIfMissing([
+    'APP_URL' => 'http://localhost',
+    'APP_TIMEZONE' => 'UTC',
+]);
+
+// Backup before risky operations
+$backup = EnvMod::backup('.bak');
+// => /path/to/.env.staging.bak.20250911_101530
+
+// Restore if needed
+EnvMod::restore($backup);
+```
+
+## What Awaits You?
+
+In this documentation, you'll learn:
+
+- **Installation**: How to install and configure the package
+- **Basic Usage**: Working with files and keys
+- **Advanced Features**: Merging, backups, and multi-file management
+- **Helper Functions**: Using global helper functions
+- **Best Practices**: Safe patterns and common use cases
+- **API Reference**: Complete method documentation
+
+Ready to get started? Let's <Link to="/packages/laravel-env-modifier/installation">install the package</Link> and begin managing your `.env` files with confidence!
+
