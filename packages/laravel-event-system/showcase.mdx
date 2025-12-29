@@ -1,0 +1,978 @@
+---
+sidebar_position: 3
+sidebar_label: Showcase
+---
+
+import Link from "@docusaurus/Link";
+
+# Laravel Event System Showcase
+
+Discover real-world examples and use cases of Laravel Event System in action. See how different applications leverage dynamic event management to build flexible, maintainable, and scalable event-driven architectures.
+
+## Understanding Event System Components
+
+Laravel Event System provides powerful features for managing events dynamically:
+
+- **Dynamic Event Registration**: Register and manage event-listener bindings at runtime without code changes
+- **Domain Event Architecture**: Implement domain events with stable keys and rich metadata
+- **Event Bus & Registry**: Dispatch events by stable keys instead of hard-coding class names
+- **Database-Driven Management**: Store event configurations in the database for UI/API management
+- **Priority Control**: Control listener execution order with priority values
+- **Status Management**: Enable or disable listeners without removing them
+
+## E-Commerce Plugin System
+
+<div className="group relative overflow-hidden bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-xl transition-all duration-300 mb-6 md:mb-8">
+  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary-dark/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+  <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 bg-gradient-to-br from-primary/10 to-primary-dark/10 rounded-full blur-3xl opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+  <div className="relative z-10">
+    <div className="flex items-center gap-4 mb-6">
+      <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-dark rounded-2xl flex items-center justify-center shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform duration-300">
+        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+        </svg>
+      </div>
+      <div>
+        <h3 className="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors">Modular Plugin Architecture</h3>
+        <p className="text-gray-600 dark:text-gray-400">Enable plugins to register their own events dynamically</p>
+      </div>
+    </div>
+
+    <div className="space-y-4 sm:space-y-6">
+      <div>
+        <h4 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">Overview</h4>
+        <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-4 sm:mb-6 leading-relaxed">
+          E-commerce platforms often need to support third-party plugins that extend functionality. These plugins may need to hook into core application events like user registration, order completion, or product updates. Laravel Event System enables plugins to register their own event listeners dynamically, allowing them to integrate seamlessly without modifying core application code.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
+        <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 sm:p-4 border border-blue-200 dark:border-blue-800">
+          <h5 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white mb-2">Plugin Capabilities</h5>
+          <ul className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 space-y-1 list-disc list-inside">
+            <li>Register event listeners on installation</li>
+            <li>Unregister listeners on uninstallation</li>
+            <li>Control listener priority</li>
+            <li>Enable/disable without uninstalling</li>
+            <li>Multiple plugins for same event</li>
+            <li>Isolated plugin configurations</li>
+          </ul>
+        </div>
+        <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-3 sm:p-4 border border-green-200 dark:border-green-800">
+          <h5 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white mb-2">Business Benefits</h5>
+          <ul className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 space-y-1 list-disc list-inside">
+            <li>Extensible architecture</li>
+            <li>No core code modifications</li>
+            <li>Easy plugin management</li>
+            <li>Runtime configuration</li>
+            <li>Plugin marketplace support</li>
+            <li>Version compatibility</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h4 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">Implementation Example</h4>
+      <div className="mb-4">
+
+```php
+namespace App\Plugins\EmailNotification;
+
+use JobMetric\EventSystem\Facades\EventSystem;
+use App\Events\UserRegistered;
+use App\Events\OrderCompleted;
+use App\Events\ProductCreated;
+
+class EmailNotificationPlugin
+{
+    private array $registeredEvents = [];
+
+    public function install(): void
+    {
+        $this->registeredEvents = [
+            'plugin.email.user.registered',
+            'plugin.email.order.completed',
+            'plugin.email.product.created',
+        ];
+
+        addEventSystem(
+            'plugin.email.user.registered',
+            UserRegistered::class,
+            EmailNotificationPlugin\Listeners\SendWelcomeEmail::class,
+            priority: 50,
+            description: 'Email Plugin: Send welcome email to new users'
+        );
+
+        addEventSystem(
+            'plugin.email.order.completed',
+            OrderCompleted::class,
+            EmailNotificationPlugin\Listeners\SendOrderConfirmation::class,
+            priority: 30,
+            description: 'Email Plugin: Send order confirmation email'
+        );
+
+        addEventSystem(
+            'plugin.email.product.created',
+            ProductCreated::class,
+            EmailNotificationPlugin\Listeners\NotifyAdminsNewProduct::class,
+            priority: 20,
+            description: 'Email Plugin: Notify admins of new products'
+        );
+    }
+
+    public function uninstall(): void
+    {
+        foreach ($this->registeredEvents as $eventName) {
+            try {
+                deleteEventSystem($eventName);
+            } catch (\Exception $e) {
+                Log::warning("Failed to unregister event: {$eventName}", [
+                    'error' => $e->getMessage()
+                ]);
+            }
+        }
+    }
+
+    public function enable(): void
+    {
+        foreach ($this->registeredEvents as $eventName) {
+            $event = EventSystem::query()
+                ->where('name', $eventName)
+                ->first();
+
+            if ($event && !$event->status) {
+                EventSystem::toggleStatus($event->id);
+            }
+        }
+    }
+
+    public function disable(): void
+    {
+        foreach ($this->registeredEvents as $eventName) {
+            $event = EventSystem::query()
+                ->where('name', $eventName)
+                ->first();
+
+            if ($event && $event->status) {
+                EventSystem::toggleStatus($event->id);
+            }
+        }
+    }
+}
+```
+
+      </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+## Domain-Driven Design Architecture
+
+<div className="group relative overflow-hidden bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-xl transition-all duration-300 mb-6 md:mb-8">
+  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary-dark/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+  <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 bg-gradient-to-br from-primary/10 to-primary-dark/10 rounded-full blur-3xl opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+  <div className="relative z-10">
+    <div className="flex items-center gap-4 mb-6">
+      <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-dark rounded-2xl flex items-center justify-center shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform duration-300">
+        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <div>
+        <h3 className="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors">Domain Event System</h3>
+        <p className="text-gray-600 dark:text-gray-400">Implement DDD patterns with stable event keys and rich metadata</p>
+      </div>
+    </div>
+
+    <div className="space-y-4 sm:space-y-6">
+      <div>
+        <h4 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">Overview</h4>
+        <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-4 sm:mb-6 leading-relaxed">
+          Domain-Driven Design emphasizes the importance of domain events—events that represent something significant that happened in your domain. Laravel Event System provides a robust foundation for implementing DDD patterns with domain events that have stable keys, rich metadata, and consistent structure. This enables you to build decoupled, maintainable systems where events are dispatched by stable keys rather than hard-coded class names.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
+        <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 sm:p-4 border border-blue-200 dark:border-blue-800">
+          <h5 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white mb-2">Domain Events</h5>
+          <ul className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 space-y-1 list-disc list-inside">
+            <li>Stable event keys</li>
+            <li>Rich metadata (title, description, icon, tags)</li>
+            <li>Consistent structure</li>
+            <li>Registry-based lookup</li>
+            <li>Key-based dispatching</li>
+            <li>UI integration support</li>
+          </ul>
+        </div>
+        <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-3 sm:p-4 border border-green-200 dark:border-green-800">
+          <h5 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white mb-2">Architecture Benefits</h5>
+          <ul className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 space-y-1 list-disc list-inside">
+            <li>Decoupled components</li>
+            <li>Testable event system</li>
+            <li>Maintainable codebase</li>
+            <li>Event discovery</li>
+            <li>Documentation generation</li>
+            <li>Workflow automation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h4 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">Implementation Example</h4>
+      <div className="mb-4">
+
+```php
+namespace App\Domain\Product\Events;
+
+use JobMetric\EventSystem\Contracts\DomainEvent;
+use JobMetric\EventSystem\Support\DomainEventDefinition;
+
+class ProductCreated implements DomainEvent
+{
+    public function __construct(
+        public int $productId,
+        public string $name,
+        public float $price,
+        public int $categoryId,
+        public int $createdBy
+    ) {}
+
+    public static function key(): string
+    {
+        return 'product.created';
+    }
+
+    public static function definition(): DomainEventDefinition
+    {
+        return new DomainEventDefinition(
+            self::key(),
+            'product::events.group',
+            'product::events.created.title',
+            'product::events.created.description',
+            'fas fa-box',
+            ['product', 'inventory', 'catalog']
+        );
+    }
+}
+
+class ProductPriceUpdated implements DomainEvent
+{
+    public function __construct(
+        public int $productId,
+        public float $oldPrice,
+        public float $newPrice,
+        public int $updatedBy
+    ) {}
+
+    public static function key(): string
+    {
+        return 'product.price.updated';
+    }
+
+    public static function definition(): DomainEventDefinition
+    {
+        return new DomainEventDefinition(
+            self::key(),
+            'product::events.group',
+            'product::events.price_updated.title',
+            'product::events.price_updated.description',
+            'fas fa-dollar-sign',
+            ['product', 'pricing', 'inventory']
+        );
+    }
+}
+
+class ProductStockDepleted implements DomainEvent
+{
+    public function __construct(
+        public int $productId,
+        public int $remainingStock
+    ) {}
+
+    public static function key(): string
+    {
+        return 'product.stock.depleted';
+    }
+
+    public static function definition(): DomainEventDefinition
+    {
+        return new DomainEventDefinition(
+            self::key(),
+            'product::events.group',
+            'product::events.stock_depleted.title',
+            'product::events.stock_depleted.description',
+            'fas fa-exclamation-triangle',
+            ['product', 'inventory', 'alert']
+        );
+    }
+}
+```
+
+**Register Domain Events:**
+
+```php
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+use JobMetric\EventSystem\Support\EventRegistry;
+use App\Domain\Product\Events\ProductCreated;
+use App\Domain\Product\Events\ProductPriceUpdated;
+use App\Domain\Product\Events\ProductStockDepleted;
+
+class EventSystemServiceProvider extends ServiceProvider
+{
+    public function boot(EventRegistry $registry): void
+    {
+        $registry->register(ProductCreated::class);
+        $registry->register(ProductPriceUpdated::class);
+        $registry->register(ProductStockDepleted::class);
+    }
+}
+```
+
+**Dispatch Events:**
+
+```php
+namespace App\Services;
+
+use JobMetric\EventSystem\Facades\EventBus;
+use App\Domain\Product\Events\ProductCreated;
+use App\Domain\Product\Events\ProductPriceUpdated;
+
+class ProductService
+{
+    public function createProduct(array $data): Product
+    {
+        $product = Product::create($data);
+
+        eventKey('product.created',
+            $product->id,
+            $product->name,
+            $product->price,
+            $product->category_id,
+            auth()->id()
+        );
+
+        return $product;
+    }
+
+    public function updatePrice(Product $product, float $newPrice): void
+    {
+        $oldPrice = $product->price;
+        $product->update(['price' => $newPrice]);
+
+        eventKey('product.price.updated',
+            $product->id,
+            $oldPrice,
+            $newPrice,
+            auth()->id()
+        );
+    }
+}
+```
+
+      </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+## Admin Panel for Event Management
+
+<div className="group relative overflow-hidden bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-xl transition-all duration-300 mb-6 md:mb-8">
+  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary-dark/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+  <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 bg-gradient-to-br from-primary/10 to-primary-dark/10 rounded-full blur-3xl opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+  <div className="relative z-10">
+    <div className="flex items-center gap-4 mb-6">
+      <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-dark rounded-2xl flex items-center justify-center shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform duration-300">
+        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+      </div>
+      <div>
+        <h3 className="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors">Event Management Dashboard</h3>
+        <p className="text-gray-600 dark:text-gray-400">Build admin interfaces for managing events through UI</p>
+      </div>
+    </div>
+
+    <div className="space-y-4 sm:space-y-6">
+      <div>
+        <h4 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">Overview</h4>
+        <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-4 sm:mb-6 leading-relaxed">
+          Non-technical administrators often need to manage event configurations without code changes. Laravel Event System enables you to build powerful admin interfaces where administrators can view all registered events, enable or disable listeners, change priorities, and even register new event bindings—all through a user-friendly interface.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
+        <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 sm:p-4 border border-blue-200 dark:border-blue-800">
+          <h5 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white mb-2">Admin Features</h5>
+          <ul className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 space-y-1 list-disc list-inside">
+            <li>List all event bindings</li>
+            <li>Filter and search events</li>
+            <li>Enable/disable listeners</li>
+            <li>Change execution priority</li>
+            <li>Register new bindings</li>
+            <li>View event metadata</li>
+          </ul>
+        </div>
+        <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-3 sm:p-4 border border-green-200 dark:border-green-800">
+          <h5 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white mb-2">Business Benefits</h5>
+          <ul className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 space-y-1 list-disc list-inside">
+            <li>No deployment needed</li>
+            <li>Faster configuration changes</li>
+            <li>Reduced developer dependency</li>
+            <li>Real-time event management</li>
+            <li>Audit trail of changes</li>
+            <li>Better control and visibility</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h4 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">Implementation Example</h4>
+      <div className="mb-4">
+
+```php
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use JobMetric\EventSystem\Facades\EventSystem;
+use JobMetric\EventSystem\Http\Resources\EventSystemResource;
+use Illuminate\Http\Request;
+
+class EventSystemController extends Controller
+{
+    public function index(Request $request)
+    {
+        $events = EventSystem::paginate(
+            filter: $request->only(['status', 'event', 'listener']),
+            page_limit: $request->get('per_page', 15)
+        );
+
+        return view('admin.events.index', [
+            'events' => EventSystemResource::collection($events)
+        ]);
+    }
+
+    public function create()
+    {
+        $availableEvents = $this->getAvailableEvents();
+        $availableListeners = $this->getAvailableListeners();
+
+        return view('admin.events.create', compact('availableEvents', 'availableListeners'));
+    }
+
+    public function store(Request $request)
+    {
+        $response = EventSystem::store($request->validate([
+            'name' => 'required|string|max:255|unique:events,name',
+            'description' => 'nullable|string',
+            'event' => 'required|string',
+            'listener' => 'required|string',
+            'priority' => 'nullable|integer',
+            'status' => 'boolean',
+        ]));
+
+        if ($response->isSuccess()) {
+            return redirect()->route('admin.events.index')
+                ->with('success', $response->getMessage());
+        }
+
+        return back()->withErrors($response->getErrors());
+    }
+
+    public function toggleStatus(int $id)
+    {
+        $response = EventSystem::toggleStatus($id);
+
+        return response()->json([
+            'success' => $response->isSuccess(),
+            'message' => $response->getMessage(),
+            'data' => EventSystemResource::make($response->getData())
+        ]);
+    }
+
+    public function destroy(string $name)
+    {
+        $response = EventSystem::delete($name);
+
+        if ($response->isSuccess()) {
+            return redirect()->route('admin.events.index')
+                ->with('success', $response->getMessage());
+        }
+
+        return back()->withErrors($response->getErrors());
+    }
+
+    private function getAvailableEvents(): array
+    {
+        $registry = app(\JobMetric\EventSystem\Support\EventRegistry::class);
+        $definitions = $registry->allDefinitions();
+
+        return collect($definitions)->map(function ($definition, $key) {
+            return [
+                'key' => $key,
+                'class' => $registry->forKey($key),
+                'title' => trans($definition->title),
+                'description' => trans($definition->description),
+                'icon' => $definition->icon,
+                'tags' => $definition->tags ?? [],
+            ];
+        })->values()->toArray();
+    }
+
+    private function getAvailableListeners(): array
+    {
+        return [
+            'App\Listeners\SendWelcomeEmail',
+            'App\Listeners\SendOrderConfirmation',
+            'App\Listeners\TrackUserRegistration',
+            'App\Listeners\UpdateInventory',
+            'App\Listeners\SendNotification',
+        ];
+    }
+}
+```
+
+      </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+## Multi-Tenant Event Configuration
+
+<div className="group relative overflow-hidden bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-xl transition-all duration-300 mb-6 md:mb-8">
+  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary-dark/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+  <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 bg-gradient-to-br from-primary/10 to-primary-dark/10 rounded-full blur-3xl opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+  <div className="relative z-10">
+    <div className="flex items-center gap-4 mb-6">
+      <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-dark rounded-2xl flex items-center justify-center shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform duration-300">
+        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+      </div>
+      <div>
+        <h3 className="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors">Tenant-Specific Event Handlers</h3>
+        <p className="text-gray-600 dark:text-gray-400">Configure different event handlers for different tenants</p>
+      </div>
+    </div>
+
+    <div className="space-y-4 sm:space-y-6">
+      <div>
+        <h4 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">Overview</h4>
+        <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-4 sm:mb-6 leading-relaxed">
+          Multi-tenant SaaS applications often need different event handling logic for different tenants. For example, one tenant might want email notifications while another prefers SMS. Laravel Event System allows you to register tenant-specific event handlers dynamically, enabling each tenant to configure their own event behavior without affecting others.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
+        <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 sm:p-4 border border-blue-200 dark:border-blue-800">
+          <h5 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white mb-2">Tenant Features</h5>
+          <ul className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 space-y-1 list-disc list-inside">
+            <li>Isolated event configurations</li>
+            <li>Tenant-specific listeners</li>
+            <li>Custom notification channels</li>
+            <li>Different priority orders</li>
+            <li>Feature-based enabling</li>
+            <li>Tenant event isolation</li>
+          </ul>
+        </div>
+        <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-3 sm:p-4 border border-green-200 dark:border-green-800">
+          <h5 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white mb-2">Business Benefits</h5>
+          <ul className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 space-y-1 list-disc list-inside">
+            <li>Customized experiences</li>
+            <li>Flexible configurations</li>
+            <li>No code changes needed</li>
+            <li>Tenant self-service</li>
+            <li>Scalable architecture</li>
+            <li>Better tenant satisfaction</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h4 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">Implementation Example</h4>
+      <div className="mb-4">
+
+```php
+namespace App\Services;
+
+use JobMetric\EventSystem\Facades\EventSystem;
+use App\Models\Tenant;
+
+class TenantEventConfigurationService
+{
+    public function configureTenantEvents(Tenant $tenant): void
+    {
+        $tenantId = $tenant->id;
+        $preferences = $tenant->event_preferences ?? [];
+
+        if ($preferences['email_enabled'] ?? false) {
+            addEventSystem(
+                "tenant.{$tenantId}.user.created.email",
+                App\Events\UserCreated::class,
+                App\Listeners\Tenant\SendEmailNotification::class,
+                priority: 50,
+                description: "Tenant {$tenant->name}: Email notification"
+            );
+        }
+
+        if ($preferences['sms_enabled'] ?? false) {
+            addEventSystem(
+                "tenant.{$tenantId}.user.created.sms",
+                App\Events\UserCreated::class,
+                App\Listeners\Tenant\SendSMSNotification::class,
+                priority: 40,
+                description: "Tenant {$tenant->name}: SMS notification"
+            );
+        }
+
+        if ($preferences['slack_enabled'] ?? false) {
+            addEventSystem(
+                "tenant.{$tenantId}.user.created.slack",
+                App\Events\UserCreated::class,
+                App\Listeners\Tenant\SendSlackNotification::class,
+                priority: 30,
+                description: "Tenant {$tenant->name}: Slack notification"
+            );
+        }
+
+        if ($preferences['webhook_enabled'] ?? false) {
+            addEventSystem(
+                "tenant.{$tenantId}.user.created.webhook",
+                App\Events\UserCreated::class,
+                App\Listeners\Tenant\SendWebhookNotification::class,
+                priority: 20,
+                description: "Tenant {$tenant->name}: Webhook notification"
+            );
+        }
+    }
+
+    public function updateTenantEvents(Tenant $tenant, array $preferences): void
+    {
+        $this->removeTenantEvents($tenant);
+        $tenant->update(['event_preferences' => $preferences]);
+        $this->configureTenantEvents($tenant);
+    }
+
+    public function removeTenantEvents(Tenant $tenant): void
+    {
+        $tenantId = $tenant->id;
+        $events = EventSystem::query()
+            ->where('name', 'like', "tenant.{$tenantId}.%")
+            ->get();
+
+        foreach ($events as $event) {
+            EventSystem::delete($event->name);
+        }
+    }
+}
+```
+
+      </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+## A/B Testing Event Handlers
+
+<div className="group relative overflow-hidden bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-xl transition-all duration-300 mb-6 md:mb-8">
+  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary-dark/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+  <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 bg-gradient-to-br from-primary/10 to-primary-dark/10 rounded-full blur-3xl opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+  <div className="relative z-10">
+    <div className="flex items-center gap-4 mb-6">
+      <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-dark rounded-2xl flex items-center justify-center shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform duration-300">
+        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+      </div>
+      <div>
+        <h3 className="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors">Event Handler Testing</h3>
+        <p className="text-gray-600 dark:text-gray-400">Test different event handlers dynamically without code changes</p>
+      </div>
+    </div>
+
+    <div className="space-y-4 sm:space-y-6">
+      <div>
+        <h4 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">Overview</h4>
+        <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-4 sm:mb-6 leading-relaxed">
+          A/B testing different event handlers allows you to experiment with different notification strategies, email templates, or processing logic. Laravel Event System makes it easy to register multiple handlers for the same event, enable or disable them dynamically, and measure their performance—all without deploying new code.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
+        <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 sm:p-4 border border-blue-200 dark:border-blue-800">
+          <h5 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white mb-2">Testing Capabilities</h5>
+          <ul className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 space-y-1 list-disc list-inside">
+            <li>Multiple handlers per event</li>
+            <li>Enable/disable handlers</li>
+            <li>Priority-based execution</li>
+            <li>Performance tracking</li>
+            <li>Gradual rollout</li>
+            <li>Easy rollback</li>
+          </ul>
+        </div>
+        <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-3 sm:p-4 border border-green-200 dark:border-green-800">
+          <h5 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white mb-2">Business Benefits</h5>
+          <ul className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 space-y-1 list-disc list-inside">
+            <li>Data-driven decisions</li>
+            <li>Risk-free experimentation</li>
+            <li>Faster iteration</li>
+            <li>Better user experience</li>
+            <li>Optimized processes</li>
+            <li>Competitive advantage</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h4 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">Implementation Example</h4>
+      <div className="mb-4">
+
+```php
+namespace App\Services;
+
+use JobMetric\EventSystem\Facades\EventSystem;
+use Illuminate\Support\Facades\Cache;
+
+class ABTestingService
+{
+    public function setupWelcomeEmailTest(): void
+    {
+        $variantA = 'welcome.email.variant.a';
+        $variantB = 'welcome.email.variant.b';
+
+        addEventSystem(
+            $variantA,
+            App\Events\UserRegistered::class,
+            App\Listeners\WelcomeEmail\VariantA\SendWelcomeEmail::class,
+            priority: 50,
+            description: 'A/B Test: Welcome Email Variant A (Simple)',
+            status: true
+        );
+
+        addEventSystem(
+            $variantB,
+            App\Events\UserRegistered::class,
+            App\Listeners\WelcomeEmail\VariantB\SendWelcomeEmail::class,
+            priority: 50,
+            description: 'A/B Test: Welcome Email Variant B (Rich)',
+            status: false
+        );
+    }
+
+    public function enableVariant(string $variantName, int $percentage = 50): void
+    {
+        $event = EventSystem::query()
+            ->where('name', $variantName)
+            ->first();
+
+        if (!$event) {
+            return;
+        }
+
+        if ($percentage === 100) {
+            EventSystem::toggleStatus($event->id);
+        } else {
+            Cache::put("ab_test.{$variantName}.percentage", $percentage, now()->addDays(7));
+        }
+    }
+
+    public function shouldUseVariant(string $variantName, int $userId): bool
+    {
+        $percentage = Cache::get("ab_test.{$variantName}.percentage", 0);
+
+        if ($percentage === 0) {
+            return false;
+        }
+
+        return ($userId % 100) < $percentage;
+    }
+
+    public function trackVariantPerformance(string $variantName, string $metric, float $value): void
+    {
+        $key = "ab_test.{$variantName}.{$metric}";
+        $current = Cache::get($key, ['count' => 0, 'total' => 0]);
+
+        Cache::put($key, [
+            'count' => $current['count'] + 1,
+            'total' => $current['total'] + $value,
+            'average' => ($current['total'] + $value) / ($current['count'] + 1),
+        ], now()->addDays(30));
+    }
+}
+```
+
+**Usage in Listener:**
+
+```php
+namespace App\Listeners\WelcomeEmail\VariantA;
+
+use App\Services\ABTestingService;
+use App\Events\UserRegistered;
+
+class SendWelcomeEmail
+{
+    public function handle(UserRegistered $event): void
+    {
+        $abTesting = app(ABTestingService::class);
+
+        if (!$abTesting->shouldUseVariant('welcome.email.variant.a', $event->userId)) {
+            return;
+        }
+
+        Mail::to($event->user->email)->send(new WelcomeEmailVariantA($event->user));
+
+        $abTesting->trackVariantPerformance('welcome.email.variant.a', 'sent', 1);
+    }
+}
+```
+
+      </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+## Workflow Automation System
+
+<div className="group relative overflow-hidden bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-xl transition-all duration-300 mb-6 md:mb-8">
+  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary-dark/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+  <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 bg-gradient-to-br from-primary/10 to-primary-dark/10 rounded-full blur-3xl opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+  <div className="relative z-10">
+    <div className="flex items-center gap-4 mb-6">
+      <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-dark rounded-2xl flex items-center justify-center shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform duration-300">
+        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+      </div>
+      <div>
+        <h3 className="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors">Event-Driven Workflows</h3>
+        <p className="text-gray-600 dark:text-gray-400">Build automation systems triggered by domain events</p>
+      </div>
+    </div>
+
+    <div className="space-y-4 sm:space-y-6">
+      <div>
+        <h4 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">Overview</h4>
+        <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-4 sm:mb-6 leading-relaxed">
+          Workflow automation systems need to respond to various domain events and trigger automated actions. Laravel Event System provides a perfect foundation for building such systems, where administrators can configure workflows by selecting domain events and defining actions to execute when those events occur. The rich metadata in domain events makes it easy to build user-friendly workflow builders.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
+        <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 sm:p-4 border border-blue-200 dark:border-blue-800">
+          <h5 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white mb-2">Workflow Features</h5>
+          <ul className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 space-y-1 list-disc list-inside">
+            <li>Event selection UI</li>
+            <li>Action configuration</li>
+            <li>Condition-based triggers</li>
+            <li>Multi-step workflows</li>
+            <li>Workflow templates</li>
+            <li>Execution logging</li>
+          </ul>
+        </div>
+        <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-3 sm:p-4 border border-green-200 dark:border-green-800">
+          <h5 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white mb-2">Business Benefits</h5>
+          <ul className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 space-y-1 list-disc list-inside">
+            <li>Automated processes</li>
+            <li>Reduced manual work</li>
+            <li>Consistent execution</li>
+            <li>Error reduction</li>
+            <li>Scalable automation</li>
+            <li>Business agility</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h4 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">Implementation Example</h4>
+      <div className="mb-4">
+
+```php
+namespace App\Services;
+
+use JobMetric\EventSystem\Support\EventRegistry;
+use JobMetric\EventSystem\Facades\EventBus;
+
+class WorkflowAutomationService
+{
+    public function createWorkflow(array $config): void
+    {
+        $workflowId = $config['id'];
+        $triggerEvent = $config['trigger_event'];
+        $actions = $config['actions'];
+
+        foreach ($actions as $index => $action) {
+            $listenerClass = $this->getListenerClassForAction($action['type']);
+
+            addEventSystem(
+                "workflow.{$workflowId}.action.{$index}",
+                $this->getEventClass($triggerEvent),
+                $listenerClass,
+                priority: 100 - $index,
+                description: "Workflow {$workflowId}: {$action['name']}",
+                status: $action['enabled'] ?? true
+            );
+        }
+    }
+
+    public function getAvailableEvents(): array
+    {
+        $registry = app(EventRegistry::class);
+        $definitions = $registry->allDefinitions();
+
+        return collect($definitions)->map(function ($definition, $key) use ($registry) {
+            return [
+                'key' => $key,
+                'class' => $registry->forKey($key),
+                'title' => trans($definition->title),
+                'description' => trans($definition->description),
+                'icon' => $definition->icon,
+                'tags' => $definition->tags ?? [],
+                'group' => trans($definition->group),
+            ];
+        })->groupBy('group')->toArray();
+    }
+
+    private function getEventClass(string $eventKey): string
+    {
+        $registry = app(EventRegistry::class);
+        return $registry->forKey($eventKey) ?? throw new \Exception("Event not found: {$eventKey}");
+    }
+
+    private function getListenerClassForAction(string $actionType): string
+    {
+        return match($actionType) {
+            'send_email' => App\Listeners\Workflow\SendEmailAction::class,
+            'send_sms' => App\Listeners\Workflow\SendSMSAction::class,
+            'create_task' => App\Listeners\Workflow\CreateTaskAction::class,
+            'update_status' => App\Listeners\Workflow\UpdateStatusAction::class,
+            'webhook' => App\Listeners\Workflow\WebhookAction::class,
+            default => throw new \Exception("Unknown action type: {$actionType}"),
+        };
+    }
+}
+```
+
+      </div>
+      </div>
+    </div>
+
+  </div>
+</div>

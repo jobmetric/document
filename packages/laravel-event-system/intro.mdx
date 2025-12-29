@@ -1,0 +1,161 @@
+---
+sidebar_position: 1
+sidebar_label: Getting Started
+---
+
+import Link from "@docusaurus/Link";
+
+# Build Event-Driven Applications. Effortlessly.
+
+**Laravel Event System** is a powerful package that simplifies dynamic event management in Laravel applications. It provides a flexible layer on top of Laravel's native event system, allowing you to register and manage events at runtime—perfect for modular applications, plugin-based systems, and event-driven architectures.
+
+## Why Laravel Event System?
+
+### Dynamic Event Registration
+
+Unlike traditional Laravel event systems that require static registration in service providers, Laravel Event System allows you to register and manage events dynamically at runtime. This means you can add, remove, or modify event listeners without code changes—perfect for modular applications and plugin systems.
+
+### Domain Event Architecture
+
+The package provides a robust foundation for domain-driven design with its `DomainEvent` contract and `EventRegistry`. Create domain events with stable keys, rich metadata, and consistent structure across your application.
+
+### Runtime Flexibility
+
+Enable or disable event listeners on the fly. Change priorities, update configurations, and manage your entire event system through a simple API or database-driven configuration. No deployment needed for event management changes.
+
+### Event Bus & Registry
+
+Dispatch events by stable keys instead of hard-coding class names. The `EventBus` and `EventRegistry` provide a clean abstraction layer that decouples your code from concrete event classes, making your application more maintainable and testable.
+
+### Database-Driven Management
+
+Store event-listener bindings in the database, allowing administrators to manage events through a UI or API. Perfect for systems where non-developers need to configure event behavior.
+
+## What is Event System Management?
+
+Event system management is the process of dynamically registering, configuring, and managing event-listener bindings in your application. Traditional Laravel applications require you to register events statically in service providers, but Laravel Event System takes a different approach:
+
+- **Database-Driven**: Event-listener bindings are stored in the database, making them manageable at runtime
+- **Dynamic Registration**: Add or remove event listeners without code changes
+- **Priority Control**: Control the execution order of listeners with priority values
+- **Status Toggle**: Enable or disable listeners without removing them
+- **Domain Events**: Use stable keys and rich metadata for domain events
+
+## Key Features
+
+### Dynamic Event Registration
+
+Register event-listener bindings at runtime using simple helper functions or the service class. Perfect for modular applications and plugin systems.
+
+### Domain Event Support
+
+Implement domain events with the `DomainEvent` contract. Each event has a stable key, rich metadata (title, description, icon, tags), and consistent structure.
+
+### Event Bus & Registry
+
+Dispatch events by stable keys using the `EventBus`. The `EventRegistry` manages event registration and provides metadata lookup capabilities.
+
+### Query & Filter Support
+
+Use Spatie QueryBuilder to filter, sort, and paginate event records. Build powerful admin interfaces for managing your event system.
+
+### Status Management
+
+Toggle event listener status on the fly. Enable or disable listeners without removing them from the database.
+
+### Resource-Based API
+
+Transform event data using JSON resources for clean, consistent API responses.
+
+## Quick Example
+
+See how easy it is to manage events dynamically:
+
+```php
+use JobMetric\EventSystem\Facades\EventSystem;
+
+// Register a new event-listener binding
+addEventSystem(
+    'user.created',
+    App\Events\UserCreated::class,
+    App\Listeners\SendWelcomeEmail::class,
+    priority: 10,
+    description: 'Send welcome email when user registers'
+);
+
+// Create a domain event
+use JobMetric\EventSystem\Contracts\DomainEvent;
+use JobMetric\EventSystem\Support\DomainEventDefinition;
+
+class UserRegistered implements DomainEvent
+{
+    public function __construct(public int $userId) {}
+
+    public static function key(): string
+    {
+        return 'user.registered';
+    }
+
+    public static function definition(): DomainEventDefinition
+    {
+        return new DomainEventDefinition(
+            self::key(),
+            'user::events.group',
+            'user::events.registered.title',
+            'user::events.registered.description',
+            'fas fa-user-plus',
+            ['user', 'registration']
+        );
+    }
+}
+
+// Register the domain event
+$registry = app(\JobMetric\EventSystem\Support\EventRegistry::class);
+$registry->register(UserRegistered::class);
+
+// Dispatch by stable key
+eventKey('user.registered', 123);
+```
+
+## What Awaits You?
+
+By adopting Laravel Event System, you will:
+
+- **Build flexible event-driven architectures** - Manage events dynamically without code changes
+- **Simplify plugin systems** - Allow plugins to register their own events
+- **Improve maintainability** - Use stable keys instead of hard-coded class names
+- **Enable runtime configuration** - Let administrators manage events through UI
+- **Scale effortlessly** - Handle complex event systems with ease
+- **Follow best practices** - Domain-driven design patterns built-in
+
+## Ready to Get Started?
+
+Stop waiting. Laravel Event System is ready to elevate your projects to a new level of flexibility and maintainability.
+
+<div className="grid grid-cols-2 gap-4 sm:gap-6 mt-6 sm:mt-8">
+  <Link
+    to="/packages/laravel-event-system/installation"
+    className="group bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-lg transition-all duration-300"
+  >
+    <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">⚙️</div>
+    <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors mb-2">
+      Installation
+    </h3>
+    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+      Install and configure Laravel Event System in your project
+    </p>
+  </Link>
+
+  <Link
+    to="/packages/laravel-event-system/deep-diving/event-system"
+    className="group bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-lg transition-all duration-300"
+  >
+    <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">🚀</div>
+    <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors mb-2">
+      Quick Start
+    </h3>
+    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+      Start with EventSystem service for dynamic event management
+    </p>
+  </Link>
+</div>
