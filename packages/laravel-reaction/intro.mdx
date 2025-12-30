@@ -1,0 +1,134 @@
+---
+sidebar_position: 1
+sidebar_label: Getting Started
+---
+
+import Link from "@docusaurus/Link";
+
+# Build Reactions. Simply and Powerfully.
+
+**Laravel Reaction** is a modern, flexible package that allows your Eloquent models to handle reaction functionality (like, dislike, love, etc.). It provides a clean API for both **reactable** models (e.g., articles, posts) and **reactor** models (e.g., users, devices), making it easy to implement social interaction features in your Laravel applications.
+
+## Why Laravel Reaction?
+
+### Simple API
+
+Laravel Reaction provides a clean, intuitive API for managing reactions. Add, remove, toggle, and query reactions with simple method calls—no complex queries or manual relationship management.
+
+### Flexible Reaction Types
+
+Support any reaction type you need: like, dislike, love, heart, thumbs up, and more. The package doesn't limit you to predefined reaction types—use whatever makes sense for your application.
+
+### Anonymous Reactions
+
+Support both authenticated user reactions and anonymous device-based reactions. Perfect for applications where users can react without logging in, or where you need to track reactions by device.
+
+### Polymorphic Relationships
+
+Use reactions on any Eloquent model through polymorphic relationships. Articles, posts, comments, products—anything can be reactable, and any model can be a reactor.
+
+### Event System
+
+Built-in events for reaction lifecycle: `ReactionAddEvent`, `ReactionRemovingEvent`, and `ReactionRemovedEvent`. Integrate with notification systems, analytics, or any custom logic.
+
+### Soft Deletes & Pruning
+
+Reactions use soft deletes, allowing you to restore deleted reactions. Automatic pruning support helps keep your database clean by removing old soft-deleted reactions.
+
+### Rich Querying
+
+Query reactions by type, reactor, reactable, device, and more. Get reaction summaries, counts, and lists with simple method calls.
+
+## What is Reaction Management?
+
+Reaction management is the process of allowing users or devices to express their feelings or opinions about content through reactions. Traditional approaches often involve:
+
+- Creating separate tables for each reaction type (likes, dislikes, etc.)
+- Writing complex queries to check reaction status
+- Managing reaction state manually
+- Duplicating code across different models
+
+Laravel Reaction solves these challenges by providing:
+
+- **Unified System**: Single table for all reaction types
+- **Polymorphic Design**: Works with any model
+- **Simple API**: Clean methods for all operations
+- **Event Integration**: Built-in events for extensibility
+- **Query Helpers**: Easy methods for common queries
+
+## Key Features
+
+### HasReaction Trait
+
+Add to models that can receive reactions (articles, posts, comments, etc.). Provides methods to add, remove, toggle, and query reactions.
+
+### CanReact Trait
+
+Add to models that can give reactions (users, devices, etc.). Provides methods to check reaction status, get reaction history, and manage reactions given.
+
+### Reaction Model
+
+The Eloquent model that stores all reactions. Supports soft deletes, automatic pruning, and polymorphic relationships.
+
+### Events
+
+Three events for reaction lifecycle:
+- `ReactionAddEvent`: When a reaction is added
+- `ReactionRemovingEvent`: Before a reaction is removed
+- `ReactionRemovedEvent`: After a reaction is removed
+
+### Anonymous Support
+
+Track reactions by device ID for anonymous users, perfect for public-facing content where users don't need to log in.
+
+## Quick Example
+
+Here's a quick example of how easy it is to use reactions:
+
+```php
+use JobMetric\Reaction\HasReaction;
+use JobMetric\Reaction\CanReact;
+
+// Article model (can receive reactions)
+class Article extends Model
+{
+    use HasReaction;
+}
+
+// User model (can give reactions)
+class User extends Model
+{
+    use CanReact;
+}
+
+// Usage
+$article = Article::find(1);
+$user = User::find(1);
+
+// Add a like reaction
+$article->addReaction('like', $user);
+
+// Check if user liked the article
+$article->hasReaction('like', $user);
+
+// Get reaction count
+$article->countReactions('like');
+
+// Toggle reaction
+$article->toggleReaction('like', $user);
+```
+
+## What Awaits You?
+
+In this documentation, you'll learn:
+
+- **Installation**: How to install and configure the package
+- **Basic Usage**: Adding reactions to your models
+- **HasReaction Trait**: Complete API for reactable models
+- **CanReact Trait**: Complete API for reactor models
+- **Reaction Model**: Understanding the reaction data structure
+- **Events**: Working with reaction events
+- **Advanced Usage**: Complex scenarios and best practices
+
+Ready to get started? Let's <Link to="/packages/laravel-reaction/installation">install the package</Link> and begin adding reactions to your application!
+

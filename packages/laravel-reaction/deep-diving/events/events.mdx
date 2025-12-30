@@ -1,0 +1,84 @@
+---
+sidebar_position: 0
+sidebar_label: Events Overview
+---
+
+import Link from "@docusaurus/Link";
+
+# Events
+
+Laravel Reaction provides three events that are fired during the reaction lifecycle. These events allow you to integrate with notification systems, analytics, caching, and other custom logic.
+
+## Available Events
+
+### ReactionAddEvent
+
+Fired when a new reaction is added to a reactable model.
+
+<Link to="/packages/laravel-reaction/deep-diving/events/reaction-add-event">Learn more about ReactionAddEvent →</Link>
+
+### ReactionRemovingEvent
+
+Fired before a reaction is removed (soft deleted) from a reactable model.
+
+<Link to="/packages/laravel-reaction/deep-diving/events/reaction-removing-event">Learn more about ReactionRemovingEvent →</Link>
+
+### ReactionRemovedEvent
+
+Fired after a reaction has been removed (soft deleted) from a reactable model.
+
+<Link to="/packages/laravel-reaction/deep-diving/events/reaction-removed-event">Learn more about ReactionRemovedEvent →</Link>
+
+## Event Lifecycle
+
+```
+1. User adds reaction
+   ↓
+2. ReactionAddEvent fired
+   ↓
+3. User removes reaction
+   ↓
+4. ReactionRemovingEvent fired (before deletion)
+   ↓
+5. Reaction soft deleted
+   ↓
+6. ReactionRemovedEvent fired (after deletion)
+```
+
+## Quick Example
+
+```php
+use JobMetric\Reaction\Events\ReactionAddEvent;
+use JobMetric\Reaction\Events\ReactionRemovedEvent;
+use Illuminate\Support\Facades\Event;
+
+// Listen to reaction added event
+Event::listen(ReactionAddEvent::class, function (ReactionAddEvent $event) {
+    $reaction = $event->reaction;
+    
+    // Send notification
+    if ($reaction->reactable->author) {
+        $reaction->reactable->author->notify(
+            new NewReactionNotification($reaction)
+        );
+    }
+    
+    // Update cache
+    Cache::forget("reactions.{$reaction->reactable_type}.{$reaction->reactable_id}");
+});
+
+// Listen to reaction removed event
+Event::listen(ReactionRemovedEvent::class, function (ReactionRemovedEvent $event) {
+    $reaction = $event->reaction;
+    
+    // Update cache
+    Cache::forget("reactions.{$reaction->reactable_type}.{$reaction->reactable_id}");
+});
+```
+
+## Related Documentation
+
+- <Link to="/packages/laravel-reaction/deep-diving/has-reaction">HasReaction</Link>
+- <Link to="/packages/laravel-reaction/deep-diving/can-react">CanReact</Link>
+- <Link to="/packages/laravel-reaction/deep-diving/models/reaction">Reaction Model</Link>
+

@@ -1,0 +1,495 @@
+---
+sidebar_position: 3
+sidebar_label: Showcase
+---
+
+import Link from "@docusaurus/Link";
+
+# Laravel Reaction Showcase
+
+Discover real-world examples and use cases of Laravel Reaction in action. See how different applications leverage reaction functionality to enhance user engagement, build social features, and track user interactions.
+
+## Understanding Reaction Components
+
+Laravel Reaction provides powerful features for managing user reactions:
+
+- **HasReaction Trait**: Core trait that enables models to receive reactions
+- **CanReact Trait**: Trait that enables models to perform reactions
+- **Multiple Reaction Types**: Support for like, dislike, love, and any custom reaction type
+- **Anonymous Reactions**: Track reactions by device ID for non-authenticated users
+- **Event System**: Built-in events for reaction lifecycle management
+- **Rich Querying**: Easy methods for counting, summarizing, and filtering reactions
+
+## Social Media Post Reactions
+
+<div className="group relative overflow-hidden bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-xl transition-all duration-300 mb-6 md:mb-8">
+  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary-dark/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+  <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 bg-gradient-to-br from-primary/10 to-primary-dark/10 rounded-full blur-3xl opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+  <div className="relative z-10">
+    <div className="flex items-center gap-4 mb-6">
+      <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-dark rounded-2xl flex items-center justify-center shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform duration-300">
+        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+        </svg>
+      </div>
+      <div>
+        <h3 className="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors">Social Media Platform</h3>
+        <p className="text-gray-600 dark:text-gray-400">Multiple reaction types for posts and comments</p>
+      </div>
+    </div>
+
+    <div className="space-y-4 sm:space-y-6">
+      <div>
+        <h4 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">Overview</h4>
+        <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-4 sm:mb-6 leading-relaxed">
+          Implement a social media platform where users can react to posts with multiple reaction types (like, love, laugh, angry, sad). This example demonstrates how to use the HasReaction and CanReact traits together to create a complete reaction system with real-time updates and user feedback.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
+          <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 sm:p-4 border border-blue-200 dark:border-blue-800">
+            <h5 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white mb-2">Key Features</h5>
+            <ul className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 space-y-1 list-disc list-inside">
+              <li>Multiple reaction types</li>
+              <li>Real-time reaction updates</li>
+              <li>Reaction summary display</li>
+              <li>Toggle reactions</li>
+              <li>User reaction status</li>
+            </ul>
+          </div>
+          <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-3 sm:p-4 border border-green-200 dark:border-green-800">
+            <h5 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white mb-2">Reaction Types</h5>
+            <ul className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 space-y-1 list-disc list-inside">
+              <li>Like - Basic approval</li>
+              <li>Love - Strong positive</li>
+              <li>Laugh - Humor reaction</li>
+              <li>Angry - Negative reaction</li>
+              <li>Sad - Empathy reaction</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h4 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">Implementation Example</h4>
+        <div className="bg-gray-900 dark:bg-gray-950 rounded-lg p-4 overflow-x-auto mb-4">
+
+```php
+use JobMetric\Reaction\HasReaction;
+use JobMetric\Reaction\CanReact;
+
+class Post extends Model
+{
+    use HasReaction;
+    
+    protected $fillable = ['title', 'content', 'user_id'];
+    
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+}
+
+class User extends Model
+{
+    use CanReact;
+    
+    protected $fillable = ['name', 'email'];
+}
+
+class PostController extends Controller
+{
+    public function react(Post $post, string $reaction)
+    {
+        $user = auth()->user();
+        
+        $post->toggleReaction($reaction, $user);
+        
+        return response()->json([
+            'success' => true,
+            'summary' => $post->reactionSummary(),
+            'user_reaction' => $post->reactionTo($user)?->reaction,
+        ]);
+    }
+    
+    public function show(Post $post)
+    {
+        $user = auth()->user();
+        
+        return view('posts.show', [
+            'post' => $post,
+            'reaction_summary' => $post->reactionSummary(),
+            'user_reaction' => $user ? $post->reactionTo($user) : null,
+        ]);
+    }
+}
+```
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+## Product Review Reactions
+
+<div className="group relative overflow-hidden bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-xl transition-all duration-300 mb-6 md:mb-8">
+  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary-dark/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+  <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 bg-gradient-to-br from-primary/10 to-primary-dark/10 rounded-full blur-3xl opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+  <div className="relative z-10">
+    <div className="flex items-center gap-4 mb-6">
+      <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-dark rounded-2xl flex items-center justify-center shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform duration-300">
+        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+        </svg>
+      </div>
+      <div>
+        <h3 className="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors">E-Commerce Review System</h3>
+        <p className="text-gray-600 dark:text-gray-400">Helpful reactions for product reviews</p>
+      </div>
+    </div>
+
+    <div className="space-y-4 sm:space-y-6">
+      <div>
+        <h4 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">Overview</h4>
+        <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-4 sm:mb-6 leading-relaxed">
+          Allow customers to react to product reviews, helping other customers identify helpful reviews. This system improves the shopping experience by highlighting valuable feedback and allowing users to express their agreement with review content.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
+          <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 sm:p-4 border border-blue-200 dark:border-blue-800">
+            <h5 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white mb-2">Key Features</h5>
+            <ul className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 space-y-1 list-disc list-inside">
+              <li>Helpful reaction tracking</li>
+              <li>Review ranking by reactions</li>
+              <li>User reaction status</li>
+              <li>Reaction count display</li>
+              <li>Review quality indicators</li>
+            </ul>
+          </div>
+          <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-3 sm:p-4 border border-green-200 dark:border-green-800">
+            <h5 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white mb-2">Use Cases</h5>
+            <ul className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 space-y-1 list-disc list-inside">
+              <li>Product review helpfulness</li>
+              <li>Review quality ranking</li>
+              <li>Customer feedback aggregation</li>
+              <li>Review moderation</li>
+              <li>Trust building</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h4 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">Implementation Example</h4>
+        <div className="bg-gray-900 dark:bg-gray-950 rounded-lg p-4 overflow-x-auto mb-4">
+
+```php
+class Review extends Model
+{
+    use HasReaction;
+    
+    protected $fillable = ['product_id', 'user_id', 'rating', 'comment'];
+    
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+    
+    public function reviewer()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+}
+
+class ReviewController extends Controller
+{
+    public function helpful(Review $review)
+    {
+        $user = auth()->user();
+        
+        $review->addReaction('helpful', $user);
+        
+        return response()->json([
+            'success' => true,
+            'helpful_count' => $review->countReactions('helpful'),
+        ]);
+    }
+    
+    public function index(Product $product)
+    {
+        $reviews = $product->reviews()
+            ->with(['reviewer', 'reactions'])
+            ->get()
+            ->map(function ($review) {
+                $review->helpful_count = $review->countReactions('helpful');
+                $review->is_helpful = auth()->user() 
+                    ? $review->hasReaction('helpful', auth()->user())
+                    : false;
+                return $review;
+            });
+        
+        return view('products.reviews', [
+            'product' => $product,
+            'reviews' => $reviews,
+        ]);
+    }
+}
+```
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+## Anonymous Article Reactions
+
+<div className="group relative overflow-hidden bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-xl transition-all duration-300 mb-6 md:mb-8">
+  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary-dark/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+  <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 bg-gradient-to-br from-primary/10 to-primary-dark/10 rounded-full blur-3xl opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+  <div className="relative z-10">
+    <div className="flex items-center gap-4 mb-6">
+      <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-dark rounded-2xl flex items-center justify-center shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform duration-300">
+        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+      </div>
+      <div>
+        <h3 className="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors">Public Content Platform</h3>
+        <p className="text-gray-600 dark:text-gray-400">Anonymous reactions using device identifiers</p>
+      </div>
+    </div>
+
+    <div className="space-y-4 sm:space-y-6">
+      <div>
+        <h4 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">Overview</h4>
+        <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-4 sm:mb-6 leading-relaxed">
+          Allow anonymous users to react to articles using device identifiers, perfect for public content where users don't need to log in. This approach enables engagement tracking without requiring user registration, making it ideal for news sites, blogs, and public content platforms.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
+          <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 sm:p-4 border border-blue-200 dark:border-blue-800">
+            <h5 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white mb-2">Key Features</h5>
+            <ul className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 space-y-1 list-disc list-inside">
+              <li>Device-based tracking</li>
+              <li>No authentication required</li>
+              <li>Cookie-based device IDs</li>
+              <li>Mixed authenticated/anonymous</li>
+              <li>Privacy-friendly approach</li>
+            </ul>
+          </div>
+          <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-3 sm:p-4 border border-green-200 dark:border-green-800">
+            <h5 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white mb-2">Use Cases</h5>
+            <ul className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 space-y-1 list-disc list-inside">
+              <li>News article reactions</li>
+              <li>Blog post engagement</li>
+              <li>Public content platforms</li>
+              <li>Media sharing sites</li>
+              <li>Content discovery</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h4 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">Implementation Example</h4>
+        <div className="bg-gray-900 dark:bg-gray-950 rounded-lg p-4 overflow-x-auto mb-4">
+
+```php
+class Article extends Model
+{
+    use HasReaction;
+    
+    protected $fillable = ['title', 'content', 'published_at'];
+}
+
+class TrackDevice
+{
+    public function handle($request, Closure $next)
+    {
+        if (!$request->hasCookie('device_id')) {
+            $deviceId = Str::uuid();
+            return $next($request)->cookie('device_id', $deviceId, 60 * 24 * 365);
+        }
+        
+        return $next($request);
+    }
+}
+
+class ArticleController extends Controller
+{
+    public function react(Article $article, string $reaction)
+    {
+        $user = auth()->user();
+        $deviceId = request()->cookie('device_id');
+        
+        if ($user) {
+            $article->toggleReaction($reaction, $user);
+        } elseif ($deviceId) {
+            $article->toggleReaction($reaction, null, ['device_id' => $deviceId]);
+        } else {
+            return response()->json(['error' => 'Device identifier required'], 400);
+        }
+        
+        return response()->json([
+            'success' => true,
+            'summary' => $article->reactionSummary(),
+        ]);
+    }
+}
+```
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+## Reaction Analytics Dashboard
+
+<div className="group relative overflow-hidden bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-xl transition-all duration-300 mb-6 md:mb-8">
+  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary-dark/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+  <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 bg-gradient-to-br from-primary/10 to-primary-dark/10 rounded-full blur-3xl opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+  <div className="relative z-10">
+    <div className="flex items-center gap-4 mb-6">
+      <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-dark rounded-2xl flex items-center justify-center shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform duration-300">
+        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+      </div>
+      <div>
+        <h3 className="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors">Analytics & Insights</h3>
+        <p className="text-gray-600 dark:text-gray-400">Track reaction patterns and engagement metrics</p>
+      </div>
+    </div>
+
+    <div className="space-y-4 sm:space-y-6">
+      <div>
+        <h4 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">Overview</h4>
+        <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-4 sm:mb-6 leading-relaxed">
+          Build an analytics dashboard to track reaction patterns and engagement metrics. This system provides insights into user behavior, content performance, and reaction trends across your application.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
+          <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 sm:p-4 border border-blue-200 dark:border-blue-800">
+            <h5 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white mb-2">Key Metrics</h5>
+            <ul className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 space-y-1 list-disc list-inside">
+              <li>Total reactions count</li>
+              <li>Reactions by type</li>
+              <li>Reactions by source</li>
+              <li>Top reacted content</li>
+              <li>User engagement patterns</li>
+            </ul>
+          </div>
+          <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-3 sm:p-4 border border-green-200 dark:border-green-800">
+            <h5 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white mb-2">Analytics Features</h5>
+            <ul className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 space-y-1 list-disc list-inside">
+              <li>Real-time statistics</li>
+              <li>Trend analysis</li>
+              <li>Content ranking</li>
+              <li>User behavior insights</li>
+              <li>Performance tracking</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h4 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">Implementation Example</h4>
+        <div className="bg-gray-900 dark:bg-gray-950 rounded-lg p-4 overflow-x-auto mb-4">
+
+```php
+use JobMetric\Reaction\Models\Reaction;
+
+class AnalyticsController extends Controller
+{
+    public function reactionStats()
+    {
+        $stats = [
+            'total_reactions' => Reaction::count(),
+            'by_type' => Reaction::select('reaction', DB::raw('count(*) as total'))
+                ->groupBy('reaction')
+                ->pluck('total', 'reaction'),
+            'by_source' => Reaction::select('source', DB::raw('count(*) as total'))
+                ->whereNotNull('source')
+                ->groupBy('source')
+                ->pluck('total', 'source'),
+            'top_reactables' => Reaction::select('reactable_type', 'reactable_id', DB::raw('count(*) as total'))
+                ->groupBy('reactable_type', 'reactable_id')
+                ->orderBy('total', 'desc')
+                ->take(10)
+                ->get()
+                ->map(function ($item) {
+                    $model = $item->reactable_type::find($item->reactable_id);
+                    return [
+                        'type' => class_basename($item->reactable_type),
+                        'id' => $item->reactable_id,
+                        'title' => $model->title ?? 'N/A',
+                        'reactions' => $item->total,
+                    ];
+                }),
+        ];
+        
+        return view('analytics.reactions', ['stats' => $stats]);
+    }
+}
+```
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+## Get Started
+
+Ready to implement reactions in your application? Check out our comprehensive documentation:
+
+<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mt-6 sm:mt-8">
+  <Link
+    to="/packages/laravel-reaction/deep-diving/has-reaction"
+    className="group bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-lg transition-all duration-300"
+  >
+    <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">👍</div>
+    <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors mb-2">
+      HasReaction
+    </h3>
+    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+      Learn how to add reaction functionality to your models
+    </p>
+  </Link>
+
+  <Link
+    to="/packages/laravel-reaction/deep-diving/can-react"
+    className="group bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-lg transition-all duration-300"
+  >
+    <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">❤️</div>
+    <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors mb-2">
+      CanReact
+    </h3>
+    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+      Enable models to perform reactions on other models
+    </p>
+  </Link>
+
+  <Link
+    to="/packages/laravel-reaction/deep-diving/events"
+    className="group bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-lg transition-all duration-300"
+  >
+    <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">📢</div>
+    <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors mb-2">
+      Events
+    </h3>
+    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+      Integrate with reaction events for notifications and analytics
+    </p>
+  </Link>
+</div>
