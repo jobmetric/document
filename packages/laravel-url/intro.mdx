@@ -1,0 +1,85 @@
+---
+sidebar_position: 1
+sidebar_label: Getting Started
+---
+
+import Link from "@docusaurus/Link";
+
+# Create SEO-Friendly URLs. Manage Slugs Effortlessly.
+
+**Laravel URL** revolutionizes how you manage URLs and slugs in Laravel applications. Stop wrestling with manual URL generation and start building SEO-friendly, versioned URLs that automatically handle redirects, conflicts, and cascading updates. This is where powerful URL management meets developer-friendly simplicity—giving you complete control over your application's routing without the complexity.
+
+## Why Laravel URL?
+
+### Automatic URL Versioning
+
+Laravel URL automatically tracks the complete history of your URLs. When a slug or parent path changes, the package creates a new version while preserving the old one for SEO-friendly 301 redirects. Your URLs evolve with your content, but old links never break.
+
+### Intelligent Conflict Detection
+
+Never worry about duplicate URLs again. Laravel URL enforces global uniqueness for active URLs, automatically detecting conflicts and preventing data integrity issues. The package handles edge cases like soft deletes, restores, and cascading updates with built-in conflict resolution.
+
+### Cascading URL Updates
+
+When a parent model's slug changes (like a category), Laravel URL automatically updates all child URLs (like products). This cascading behavior ensures your URL structure stays consistent without manual intervention.
+
+### Smart Fallback Routing
+
+Laravel URL provides a powerful fallback route system that resolves any unmatched path using your versioned URL database. Active URLs trigger events for custom routing, while legacy URLs automatically redirect (301) to their canonical versions—perfect for SEO.
+
+## What is URL Management?
+
+URL management is the foundation of SEO-friendly web applications. Consider an e-commerce product that lives at `/shop/laptops/macbook-pro-14`. When the category changes from "laptops" to "computers", the product URL should automatically update to `/shop/computers/macbook-pro-14`, while the old URL redirects to the new one.
+
+Each URL consists of:
+- **Slug**: A friendly, URL-safe identifier (e.g., `macbook-pro-14`)
+- **Full URL**: The complete path including parent segments (e.g., `/shop/laptops/macbook-pro-14`)
+- **Versioning**: Historical tracking for redirects and SEO
+- **Collections**: Optional grouping for organizing slugs by context
+
+### Power at Your Fingertips
+
+With Laravel URL, you have complete control over your URL structure. Define hierarchical URLs, implement automatic versioning, handle conflicts gracefully, support soft deletes and restores, and generate SEO-friendly redirects—all without writing complex routing logic.
+
+## What Awaits You?
+
+By adopting Laravel URL, you will:
+
+- **Improve SEO automatically** - Automatic 301 redirects preserve link equity
+- **Reduce development time** - No more manual URL management code
+- **Write cleaner, more maintainable code** - Follow best practices with a battle-tested solution
+- **Scale your projects effortlessly** - Handle complex URL hierarchies without performance concerns
+- **Shift focus to business value** - Let the package handle URL management complexity
+
+## Ready to Get Started?
+
+Stop waiting. Laravel URL is ready to elevate your projects to a new level of SEO optimization and URL management.
+
+<div className="grid grid-cols-2 gap-4 sm:gap-6 mt-6 sm:mt-8">
+  <Link
+    to="/packages/laravel-url/installation"
+    className="group bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-lg transition-all duration-300"
+  >
+    <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">⚙️</div>
+    <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors mb-2">
+      Installation
+    </h3>
+    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+      Install and configure Laravel URL in your project
+    </p>
+  </Link>
+
+  <Link
+    to="/packages/laravel-url/deep-diving/has-url"
+    className="group bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-lg transition-all duration-300"
+  >
+    <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">🚀</div>
+    <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors mb-2">
+      Quick Start
+    </h3>
+    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+      Start with HasUrl trait for URL management
+    </p>
+  </Link>
+</div>
+
