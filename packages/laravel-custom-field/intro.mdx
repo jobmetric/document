@@ -1,0 +1,141 @@
+---
+sidebar_position: 1
+sidebar_label: Getting Started
+---
+
+import Link from "@docusaurus/Link";
+
+# Build Forms. Beautifully and Consistently.
+
+**Laravel Custom Field** is a powerful package that provides a fluent builder API to define, render, and serialize form fields with consistent HTML output. It supports all standard HTML input types (text, number, select, radio, image, etc.) with an extendable option/data system, making it perfect for building dynamic forms, admin panels, and API-driven form builders.
+
+## Why Laravel Custom Field?
+
+### Fluent Builder API
+
+Laravel Custom Field provides a clean, chainable API for building form fields. Set attributes, properties, options, and data attributes in a single fluent chain—no more scattered HTML or inconsistent form rendering.
+
+### Consistent HTML Output
+
+All fields render with consistent HTML structure, making it easy to style and maintain forms across your application. The package handles all the boilerplate, so you focus on your business logic.
+
+### Extensible Architecture
+
+Create custom field types by extending the base classes. The package uses a registry system that makes it easy to add new field types and customize existing ones.
+
+### Asset Management
+
+Fields can include their own JavaScript and CSS assets. The package automatically collects and provides asset paths, making it easy to include field-specific functionality.
+
+### Option System
+
+Powerful option builder for select, radio, and checkbox fields. Build options via closures for bulk operations or arrays for simple cases.
+
+### Data Attributes Support
+
+Easily add data attributes to fields for JavaScript integration, AJAX handling, or any custom functionality you need.
+
+## What is Custom Field Management?
+
+Custom field management is the process of programmatically creating, configuring, and rendering form fields. Traditional approaches often involve:
+
+- Writing HTML manually (error-prone, inconsistent)
+- Using form builders (limited flexibility)
+- Creating custom components (time-consuming)
+
+Laravel Custom Field solves these challenges by providing:
+
+- **Fluent API**: Chain methods to build fields
+- **Type Safety**: Strongly-typed field classes
+- **Consistent Output**: Standardized HTML structure
+- **Extensibility**: Easy to create custom field types
+- **Asset Management**: Automatic script/style collection
+- **Template System**: Customizable blade templates
+
+## Key Features
+
+### Field Types
+
+Support for all standard HTML input types:
+- Text, Number, Email, Tel, Password
+- Select, Radio, Checkbox
+- Date, DateTime-Local, Time, Week, Month
+- Color, Range, Hidden
+- Image
+
+### Attributes & Properties
+
+Set HTML attributes (id, name, class, placeholder, etc.) and properties (required, disabled, readonly, multiple, etc.) through fluent methods.
+
+### Options Builder
+
+Powerful builder for select/radio/checkbox options with support for labels, values, selected states, and custom attributes.
+
+### Data Attributes
+
+Add data attributes for JavaScript integration, AJAX handling, or custom functionality.
+
+### Image Support
+
+Built-in image handling with support for alt text, dimensions, and custom attributes.
+
+## Quick Example
+
+Here's a quick example of how easy it is to build forms:
+
+```php
+use JobMetric\CustomField\CustomFieldBuilder;
+
+// Text field
+$text = CustomFieldBuilder::text()
+    ->name('user[name]')
+    ->label('Name')
+    ->info('Enter your full name')
+    ->required()
+    ->placeholder('Enter name')
+    ->build();
+
+// Select with options
+$select = CustomFieldBuilder::select()
+    ->name('country')
+    ->label('Country')
+    ->options(function ($opt) {
+        $opt->label('Iran')->value('IR')->selected()->build();
+        $opt->label('Germany')->value('DE')->build();
+    })
+    ->build();
+
+// Render HTML
+$html = $text->toHtml();
+echo $html['body'];
+```
+
+## What Awaits You?
+
+In this documentation, you'll learn:
+
+- **Installation**: How to install and configure the package
+- **Basic Usage**: Building your first fields
+- **Field Types**: All available field types and their features
+- **Advanced Features**: Options, data attributes, images, and more
+- **Extending**: Creating custom field types and registering them with the registry
+- **API Reference**: Complete method documentation
+
+## Creating and Registering Custom Fields
+
+One of the most powerful features of Laravel Custom Field is the ability to create your own custom field types. The process is straightforward:
+
+1. **Create the Field**: Use the `custom-field:make` command to generate a new field class
+2. **Customize**: Add your field-specific logic, attributes, and view templates
+3. **Register**: Register your field in a service provider using `CustomFieldRegistry`
+4. **Use**: Your field becomes available through `CustomFieldBuilder`
+
+For a complete guide on creating and registering custom fields, see:
+- <Link to="/packages/laravel-custom-field/deep-diving/commands/make-custom-field">MakeCustomField Command</Link> - Learn how to generate custom field classes
+- <Link to="/packages/laravel-custom-field/deep-diving/support/custom-field-registry#registering-custom-fields">Registering Custom Fields</Link> - Complete guide on field registration
+
+Ready to get started? Let's <Link to="/packages/laravel-custom-field/installation">install the package</Link> and begin building beautiful forms!
+
+
+
+
