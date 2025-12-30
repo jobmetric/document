@@ -1,0 +1,144 @@
+---
+sidebar_position: 1
+sidebar_label: Getting Started
+---
+
+import Link from "@docusaurus/Link";
+
+# Build Forms. Programmatically and Beautifully.
+
+**Laravel Form** is a powerful package that provides a fluent builder API to create complex, structured forms programmatically. Built on top of Laravel Custom Field, it allows you to organize forms with tabs, groups, and custom fields—all through a clean, chainable interface. Perfect for building dynamic admin panels, configuration forms, and API-driven form builders.
+
+## Why Laravel Form?
+
+### Fluent Builder API
+
+Laravel Form provides a clean, chainable API for building forms. Organize fields into tabs and groups, set form attributes, and configure validation—all through a single fluent chain. No more scattered HTML or inconsistent form structures.
+
+### Tab-Based Organization
+
+Organize complex forms into logical tabs. Each tab can contain multiple groups, and each group can contain multiple fields. This hierarchical structure makes it easy to build sophisticated forms while keeping code organized and maintainable.
+
+### Group-Based Field Organization
+
+Group related fields together with labels and descriptions. Groups provide visual separation and logical organization, making forms easier to understand and fill out.
+
+### Integration with Custom Fields
+
+Built on top of Laravel Custom Field, you can use all available field types (text, select, radio, image, etc.) and create custom field types. The form builder seamlessly integrates with the custom field system.
+
+### Automatic Validation
+
+Forms can automatically generate validation rules from field configurations. Use `FormBuilderRequest` to drive validation directly from your form definition, eliminating the need to manually write validation rules.
+
+### HTML Rendering
+
+Forms can be rendered to HTML with a single method call. The package handles all the boilerplate, including CSRF tokens, form attributes, and field rendering.
+
+### Array Serialization
+
+Export form definitions to arrays for API responses, form builders, or storage. Perfect for building dynamic form systems where form structures need to be configurable.
+
+## What is Form Building?
+
+Form building is the process of programmatically creating, configuring, and rendering HTML forms. Traditional approaches often involve:
+
+- Writing HTML manually (error-prone, inconsistent)
+- Using form builders with limited flexibility
+- Creating custom components (time-consuming)
+- Managing validation separately from form structure
+
+Laravel Form solves these challenges by providing:
+
+- **Fluent API**: Chain methods to build forms
+- **Structured Organization**: Tabs and groups for complex forms
+- **Type Safety**: Strongly-typed form classes
+- **Consistent Output**: Standardized HTML structure
+- **Automatic Validation**: Generate rules from form definition
+- **Extensibility**: Easy to extend and customize
+
+## Key Features
+
+### Form Builder
+
+The `FormBuilder` class provides a fluent interface for creating forms. Set form attributes (action, method, enctype, etc.), add tabs, and configure form behavior.
+
+### Tabs
+
+Organize form fields into tabs for better user experience. Each tab can have an ID, label, description, position, and selected state.
+
+### Groups
+
+Group related fields together within tabs. Groups provide labels and descriptions, making forms easier to understand and navigate.
+
+### Custom Fields Integration
+
+Use all field types from Laravel Custom Field, including text, number, select, radio, checkbox, date, image, and custom field types.
+
+### Validation Requests
+
+`FormBuilderRequest` automatically generates validation rules and attributes from form field configurations, eliminating duplicate validation code.
+
+### HTML Rendering
+
+Render forms to HTML with automatic CSRF token inclusion, proper form attributes, and field rendering.
+
+### Array Serialization
+
+Export form definitions to arrays for APIs, storage, or dynamic form builders.
+
+## Quick Example
+
+Here's a quick example of how easy it is to build forms:
+
+```php
+use JobMetric\Form\FormBuilder;
+
+$form = FormBuilder::make()
+    ->action('/users')
+    ->method('POST')
+    ->name('user-form')
+    ->tab(function ($tab) {
+        $tab->id('personal')
+            ->label('Personal Information')
+            ->group(function ($group) {
+                $group->label('Basic Info')
+                    ->customField(function ($field) {
+                        $field->text()
+                            ->name('name')
+                            ->label('Full Name')
+                            ->required()
+                            ->build();
+                    })
+                    ->customField(function ($field) {
+                        $field->email()
+                            ->name('email')
+                            ->label('Email Address')
+                            ->required()
+                            ->build();
+                    })
+                    ->build();
+            })
+            ->build();
+    })
+    ->build();
+
+// Render HTML
+$html = $form->toHtml();
+```
+
+## What Awaits You?
+
+In this documentation, you'll learn:
+
+- **Installation**: How to install and configure the package
+- **Basic Usage**: Building your first forms
+- **Form Builder**: Complete API reference for FormBuilder
+- **Tabs & Groups**: Organizing forms with tabs and groups
+- **Custom Fields**: Integrating with Laravel Custom Field
+- **Validation**: Automatic validation with FormBuilderRequest
+- **Rendering**: Rendering forms to HTML
+- **Serialization**: Exporting forms to arrays
+
+Ready to get started? Let's <Link to="/packages/laravel-form/installation">install the package</Link> and begin building beautiful forms!
+
