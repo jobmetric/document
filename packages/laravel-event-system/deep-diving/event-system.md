@@ -3,6 +3,8 @@ sidebar_position: 1
 sidebar_label: EventSystem
 ---
 
+import Link from "@docusaurus/Link";
+
 # EventSystem Service
 
 The EventSystem service provides comprehensive CRUD operations and dynamic event management functionality for Laravel Event System. You can use it directly via the service class or through the convenient Facade.
@@ -332,5 +334,5 @@ class EmailPlugin
 - [DomainEvent](/packages/laravel-event-system/deep-diving/domain-event) - Domain event contract
 - [EventBus](/packages/laravel-event-system/deep-diving/support/event-bus) - Event bus for dispatching events
 - [EventRegistry](/packages/laravel-event-system/deep-diving/support/event-registry) - Registry for managing domain events
-- [StoreEventSystemRequest](/packages/laravel-event-system/deep-diving/requests/store-event-system-request) - Form request for validation
-- [EventSystemResource](/packages/laravel-event-system/deep-diving/resources/event-system-resource) - JSON resource for API responses
+- <Link to="/packages/laravel-event-system/deep-diving/store-event-system-request">StoreEventSystemRequest</Link> - Form request for validation
+- <Link to="/packages/laravel-event-system/deep-diving/event-system-resource">EventSystemResource</Link> - JSON resource for API responses
