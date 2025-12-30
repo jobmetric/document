@@ -336,5 +336,5 @@ $notifications = $user->getMetadata('notifications', []);
 - <Link to="/packages/laravel-metadata/deep-diving/has-filter-meta">HasFilterMeta</Link>
 - <Link to="/packages/laravel-metadata/deep-diving/has-dynamic-meta">HasDynamicMeta</Link>
 - <Link to="/packages/laravel-metadata/deep-diving/models/meta">Meta Model</Link>
-- <Link to="/packages/laravel-metadata/deep-diving/events/metadata-events">Events</Link>
+- <Link to="/packages/laravel-metadata/deep-diving/events">Events</Link>
 
