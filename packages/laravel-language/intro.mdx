@@ -1,0 +1,137 @@
+---
+sidebar_position: 1
+sidebar_label: Getting Started
+---
+
+import Link from "@docusaurus/Link";
+
+# Build Language Management. Simply and Powerfully.
+
+**Laravel Language** is a modern, flexible package that provides a clean, framework-native way to manage application languages with first-class validation rules, events, and a fluent query API. It supports multiple calendar systems, text directions, and provides comprehensive tools for internationalization and localization.
+
+## Why Laravel Language?
+
+### Simple API
+
+Laravel Language provides a clean, intuitive API for managing languages. Store, update, delete, and query languages with simple method calls through the service or facade.
+
+### Calendar Awareness
+
+Support for multiple calendar systems: Gregorian, Jalali, Hijri, Hebrew, Buddhist, Coptic, Ethiopian, and Chinese. Each language can have its own calendar preference.
+
+### Validation Rules
+
+Built-in validation rules: `CheckLocaleRule` and `LanguageExistRule` ensure data integrity and validate locale codes.
+
+### Event System
+
+Built-in events for language lifecycle: `LanguageStoredEvent`, `LanguageUpdatedEvent`, `LanguageDeletingEvent`, and `LanguageDeletedEvent`. Integrate with notification systems, caching, or any custom logic.
+
+### Middleware Support
+
+Built-in middleware for setting language and timezone automatically based on user preferences or request parameters.
+
+### Rich Querying
+
+Query languages with filters, sorts, and field selection using Spatie QueryBuilder under the hood.
+
+### API Resources
+
+Optional API resources for transforming language data for API responses.
+
+## What is Language Management?
+
+Language management is the process of managing multiple languages in your application, including locale settings, text direction (LTR/RTL), calendar systems, and formatting preferences. Traditional approaches often involve:
+
+- Creating custom language tables manually
+- Writing complex queries to filter and sort languages
+- Managing locale settings manually
+- Duplicating code across different parts of the application
+
+Laravel Language solves these challenges by providing:
+
+- **Unified System**: Single table for all language data
+- **Calendar Support**: Multiple calendar systems out of the box
+- **Simple API**: Clean methods for all operations
+- **Event Integration**: Built-in events for extensibility
+- **Query Helpers**: Easy methods for common queries
+
+## Key Features
+
+### Language Service
+
+The main service class that provides methods for storing, updating, deleting, and querying languages. Can be used directly or through the facade.
+
+### Language Model
+
+The Eloquent model that stores language data. Includes query scopes for filtering by locale, direction, and calendar.
+
+### Calendar Type Enum
+
+Enum for calendar system types: Gregorian, Jalali, Hijri, Hebrew, Buddhist, Coptic, Ethiopian, and Chinese.
+
+### Validation Rules
+
+- `CheckLocaleRule`: Validates locale codes
+- `LanguageExistRule`: Validates language existence
+- `CheckFutureDateRule`: Validates future dates based on calendar
+
+### Middleware
+
+- `SetLanguageMiddleware`: Automatically sets application locale
+- `SetTimezoneMiddleware`: Automatically sets application timezone
+
+### Events
+
+Four events for language lifecycle:
+- `LanguageStoredEvent`: When a language is created
+- `LanguageUpdatedEvent`: When a language is updated
+- `LanguageDeletingEvent`: Before a language is deleted
+- `LanguageDeletedEvent`: After a language is deleted
+
+## Quick Example
+
+Here's a quick example of how easy it is to use language management:
+
+```php
+use JobMetric\Language\Facades\Language;
+
+// Store a new language
+$language = Language::store([
+    'name' => 'Persian',
+    'flag' => 'ir',
+    'locale' => 'fa',
+    'direction' => 'rtl',
+    'calendar' => 'jalali',
+    'first_day_of_week' => 0,
+    'status' => true,
+]);
+
+// Get all active languages
+$languages = Language::all(['status' => true]);
+
+// Update a language
+Language::update($id, [
+    'name' => 'فارسی',
+    'status' => true,
+]);
+
+// Delete a language
+Language::delete($id);
+```
+
+## What Awaits You?
+
+In this documentation, you'll learn:
+
+- **Installation**: How to install and configure the package
+- **Basic Usage**: Managing languages in your application
+- **Language Service**: Complete API for language operations
+- **Language Model**: Understanding the language data structure
+- **Validation Rules**: Using built-in validation rules
+- **Events**: Working with language events
+- **Middleware**: Setting language and timezone automatically
+- **Advanced Usage**: Complex scenarios and best practices
+
+Ready to get started? Let's <Link to="/packages/laravel-language/installation">install the package</Link> and begin managing languages in your application!
+

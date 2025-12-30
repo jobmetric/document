@@ -1,0 +1,253 @@
+---
+sidebar_position: 3
+sidebar_label: Showcase
+---
+
+import Link from "@docusaurus/Link";
+
+# Laravel Language Showcase
+
+Discover real-world examples and use cases of Laravel Language in action. See how different applications leverage language management to support multiple locales, calendar systems, and text directions.
+
+## Understanding Language Components
+
+Laravel Language provides powerful features for managing languages:
+
+- **Language Service**: Core service for CRUD operations
+- **Language Model**: Eloquent model with query scopes
+- **Calendar Support**: Multiple calendar systems (Gregorian, Jalali, Hijri, etc.)
+- **Validation Rules**: Built-in rules for locale and language validation
+- **Middleware**: Automatic locale and timezone setting
+- **Events**: Lifecycle events for language management
+
+## Multi-Language E-Commerce Platform
+
+<div className="group relative overflow-hidden bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-xl transition-all duration-300 mb-6 md:mb-8">
+  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary-dark/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+  <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 bg-gradient-to-br from-primary/10 to-primary-dark/10 rounded-full blur-3xl opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+  <div className="relative z-10">
+    <div className="flex items-center gap-4 mb-6">
+      <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-dark rounded-2xl flex items-center justify-center shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform duration-300">
+        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+        </svg>
+      </div>
+      <div>
+        <h3 className="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors">Global E-Commerce</h3>
+        <p className="text-gray-600 dark:text-gray-400">Multi-language support with calendar awareness</p>
+      </div>
+    </div>
+
+    <div className="space-y-4 sm:space-y-6">
+      <div>
+        <h4 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">Overview</h4>
+        <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-4 sm:mb-6 leading-relaxed">
+          Build a global e-commerce platform that supports multiple languages with different calendar systems. Persian customers see dates in Jalali calendar, Arabic customers see Hijri calendar, while Western customers see Gregorian calendar. Each language has its own text direction (RTL for Persian/Arabic, LTR for English).
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
+          <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 sm:p-4 border border-blue-200 dark:border-blue-800">
+            <h5 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white mb-2">Key Features</h5>
+            <ul className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 space-y-1 list-disc list-inside">
+              <li>Multiple calendar systems</li>
+              <li>RTL/LTR text direction</li>
+              <li>Locale-based date formatting</li>
+              <li>Automatic locale detection</li>
+              <li>Language switching</li>
+            </ul>
+          </div>
+          <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-3 sm:p-4 border border-green-200 dark:border-green-800">
+            <h5 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white mb-2">Supported Languages</h5>
+            <ul className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 space-y-1 list-disc list-inside">
+              <li>Persian (Jalali, RTL)</li>
+              <li>Arabic (Hijri, RTL)</li>
+              <li>English (Gregorian, LTR)</li>
+              <li>Hebrew (Hebrew, RTL)</li>
+              <li>And more...</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h4 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">Implementation Example</h4>
+        <div className="bg-gray-900 dark:bg-gray-950 rounded-lg p-4 overflow-x-auto mb-4">
+
+```php
+use JobMetric\Language\Facades\Language;
+use JobMetric\Language\Support\CurrentLanguage;
+
+// Setup languages
+Language::addLanguageData('fa');
+Language::addLanguageData('en');
+Language::addLanguageData('ar');
+
+// In controller
+class ProductController extends Controller
+{
+    public function show(Product $product)
+    {
+        $language = CurrentLanguage::get();
+        
+        return view('products.show', [
+            'product' => $product,
+            'language' => $language,
+            'direction' => $language->direction,
+            'calendar' => $language->calendar,
+        ]);
+    }
+}
+
+// In blade view
+<div dir="{{ $direction }}">
+    <h1>{{ $product->name }}</h1>
+    <p>{{ tz_format($product->created_at, 'Y-m-d') }}</p>
+</div>
+```
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+## Content Management System
+
+<div className="group relative overflow-hidden bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-xl transition-all duration-300 mb-6 md:mb-8">
+  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary-dark/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+  <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 bg-gradient-to-br from-primary/10 to-primary-dark/10 rounded-full blur-3xl opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+  <div className="relative z-10">
+    <div className="flex items-center gap-4 mb-6">
+      <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-dark rounded-2xl flex items-center justify-center shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform duration-300">
+        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+      </div>
+      <div>
+        <h3 className="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors">Multi-Language CMS</h3>
+        <p className="text-gray-600 dark:text-gray-400">Language management for content platforms</p>
+      </div>
+    </div>
+
+    <div className="space-y-4 sm:space-y-6">
+      <div>
+        <h4 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">Overview</h4>
+        <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-4 sm:mb-6 leading-relaxed">
+          Implement a content management system that supports multiple languages with automatic locale detection, language switching, and calendar-aware date formatting. Content editors can manage languages through an admin panel, and the system automatically handles locale settings, text directions, and date formatting.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
+          <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 sm:p-4 border border-blue-200 dark:border-blue-800">
+            <h5 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white mb-2">Key Features</h5>
+            <ul className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 space-y-1 list-disc list-inside">
+              <li>Admin language management</li>
+              <li>Automatic locale detection</li>
+              <li>Language switching UI</li>
+              <li>Calendar-aware dates</li>
+              <li>RTL/LTR support</li>
+            </ul>
+          </div>
+          <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-3 sm:p-4 border border-green-200 dark:border-green-800">
+            <h5 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white mb-2">Use Cases</h5>
+            <ul className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 space-y-1 list-disc list-inside">
+              <li>Blog platforms</li>
+              <li>News websites</li>
+              <li>Documentation sites</li>
+              <li>Corporate websites</li>
+              <li>Portals</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h4 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">Implementation Example</h4>
+        <div className="bg-gray-900 dark:bg-gray-950 rounded-lg p-4 overflow-x-auto mb-4">
+
+```php
+use JobMetric\Language\Facades\Language;
+
+class LanguageController extends Controller
+{
+    public function index()
+    {
+        $languages = Language::all(['status' => true]);
+        
+        return view('admin.languages.index', [
+            'languages' => $languages,
+        ]);
+    }
+    
+    public function store(StoreLanguageRequest $request)
+    {
+        $response = Language::store($request->validated());
+        
+        return redirect()->route('admin.languages.index')
+            ->with('success', $response->message);
+    }
+    
+    public function switch($locale)
+    {
+        session(['language' => $locale]);
+        app()->setLocale($locale);
+        
+        return redirect()->back();
+    }
+}
+```
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+## Get Started
+
+Ready to implement language management in your application? Check out our comprehensive documentation:
+
+<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mt-6 sm:mt-8">
+  <Link
+    to="/packages/laravel-language/deep-diving/language-service"
+    className="group bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-lg transition-all duration-300"
+  >
+    <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">🌐</div>
+    <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors mb-2">
+      Language Service
+    </h3>
+    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+      Learn how to manage languages with the service API
+    </p>
+  </Link>
+
+  <Link
+    to="/packages/laravel-language/deep-diving/models/language"
+    className="group bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-lg transition-all duration-300"
+  >
+    <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">📋</div>
+    <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors mb-2">
+      Language Model
+    </h3>
+    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+      Understand the language data structure
+    </p>
+  </Link>
+
+  <Link
+    to="/packages/laravel-language/deep-diving/middleware/set-language-middleware"
+    className="group bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-lg transition-all duration-300"
+  >
+    <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">⚙️</div>
+    <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors mb-2">
+      Middleware
+    </h3>
+    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+      Automatic locale and timezone setting
+    </p>
+  </Link>
+</div>
+
