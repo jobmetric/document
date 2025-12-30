@@ -3,6 +3,8 @@ sidebar_position: 3
 sidebar_label: TranslationTypeObjectRequest
 ---
 
+import Link from "@docusaurus/Link";
+
 # TranslationTypeObjectRequest Trait
 
 The `TranslationTypeObjectRequest` trait composes **validation rules** and **human‑friendly attribute labels** for a single `translation` object across **all locales provided in the incoming payload** (or falls back to `app()->getLocale()` if none are provided). It is designed to work with a **Typeify** schema (`JobMetric\Translation\Typeify\Translation`) that describes each translatable field (its unique name, validation string, label, and optional uniqueness).
@@ -279,7 +281,7 @@ Array
 ## Related Documentation
 
 - [HasTranslation](/packages/laravel-translation/deep-diving/has-translation) - Core trait for multilingual models
-- [TranslationFieldExistRule](/packages/laravel-translation/deep-diving/rules/translation-field-exist-rule) - Validation rule for unique translations
+- <Link to="/packages/laravel-translation/deep-diving/translation-field-exist-rule">TranslationFieldExistRule</Link> - Validation rule for unique translations
 - [TranslationArrayRequest](/packages/laravel-translation/deep-diving/requests/translation-array-request) - Simpler array-based validation
 - [MultiTranslationArrayRequest](/packages/laravel-translation/deep-diving/requests/multi-translation-array-request) - Multi-locale array validation
 - [MultiTranslationTypeObjectRequest](/packages/laravel-translation/deep-diving/requests/multi-translation-type-object-request) - Multi-locale Typeify validation

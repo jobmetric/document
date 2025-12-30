@@ -3,6 +3,8 @@ sidebar_position: 2
 sidebar_label: MultiTranslationArrayRequest
 ---
 
+import Link from "@docusaurus/Link";
+
 # MultiTranslationArrayRequest Trait
 
 The `MultiTranslationArrayRequest` trait helps you build **validation rules** and **friendly attribute labels** for multi-locale translation payloads under a single input root named `translation`. It is designed to work with models using the `HasTranslation` trait and a locale provider (via `Language::all()`).
@@ -384,7 +386,7 @@ Copy the snippets above into your `FormRequest` classes, and you're ready to val
 
 - [HasTranslation](/packages/laravel-translation/deep-diving/has-translation) - Core trait for multilingual models
 - [TranslationArrayRequest](/packages/laravel-translation/deep-diving/requests/translation-array-request) - Simpler version for single or dynamic locales
-- [TranslationFieldExistRule](/packages/laravel-translation/deep-diving/rules/translation-field-exist-rule) - Validation rule for unique translations
+- <Link to="/packages/laravel-translation/deep-diving/translation-field-exist-rule">TranslationFieldExistRule</Link> - Validation rule for unique translations
 - [TranslationTypeObjectRequest](/packages/laravel-translation/deep-diving/requests/translation-type-object-request) - Typeify-based validation for complex schemas
 - [MultiTranslationTypeObjectRequest](/packages/laravel-translation/deep-diving/requests/multi-translation-type-object-request) - Multi-locale Typeify validation
 - [TranslationResource](/packages/laravel-translation/deep-diving/resources/translation-resource) - JSON resource for API responses

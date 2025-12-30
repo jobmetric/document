@@ -3,6 +3,8 @@ sidebar_position: 1
 sidebar_label: HasTranslation
 ---
 
+import Link from "@docusaurus/Link";
+
 # HasTranslation Trait
 
 The `HasTranslation` trait is the **core foundation** of Laravel Translation package, providing powerful multilingual capabilities for your Eloquent models. It enables per-field translations with optional versioning, query scopes, and a comprehensive set of helper methods for managing translations seamlessly.
@@ -654,7 +656,7 @@ This trait allows you to build fully multilingual applications while keeping you
 
 ## Related Documentation
 
-- [TranslationFieldExistRule](/packages/laravel-translation/deep-diving/rules/translation-field-exist-rule) - Validation rule for unique translations
+- <Link to="/packages/laravel-translation/deep-diving/translation-field-exist-rule">TranslationFieldExistRule</Link> - Validation rule for unique translations
 - [TranslationArrayRequest](/packages/laravel-translation/deep-diving/requests/translation-array-request) - Form request trait for array-based translations
 - [MultiTranslationArrayRequest](/packages/laravel-translation/deep-diving/requests/multi-translation-array-request) - Form request trait for multi-locale array translations
 - [TranslationTypeObjectRequest](/packages/laravel-translation/deep-diving/requests/translation-type-object-request) - Form request trait for Typeify-based translations
