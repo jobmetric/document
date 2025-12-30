@@ -1,0 +1,105 @@
+---
+sidebar_position: 0
+sidebar_label: Events Overview
+---
+
+import Link from "@docusaurus/Link";
+
+# Events
+
+Laravel Star provides five events that are fired during the star rating lifecycle. These events allow you to integrate with notification systems, analytics, caching, and other custom logic.
+
+## Available Events
+
+### StarAddEvent
+
+Fired when a new star rating is added to a starable model.
+
+<Link to="/packages/laravel-star/deep-diving/events/star-add-event">Learn more about StarAddEvent →</Link>
+
+### StarUpdatingEvent
+
+Fired before a star rating is updated.
+
+<Link to="/packages/laravel-star/deep-diving/events/star-updating-event">Learn more about StarUpdatingEvent →</Link>
+
+### StarUpdatedEvent
+
+Fired after a star rating has been updated.
+
+<Link to="/packages/laravel-star/deep-diving/events/star-updated-event">Learn more about StarUpdatedEvent →</Link>
+
+### StarRemovingEvent
+
+Fired before a star rating is removed.
+
+<Link to="/packages/laravel-star/deep-diving/events/star-removing-event">Learn more about StarRemovingEvent →</Link>
+
+### StarRemovedEvent
+
+Fired after a star rating has been removed.
+
+<Link to="/packages/laravel-star/deep-diving/events/star-removed-event">Learn more about StarRemovedEvent →</Link>
+
+## Event Lifecycle
+
+```
+1. User adds rating
+   ↓
+2. StarAddEvent fired
+   ↓
+3. User updates rating
+   ↓
+4. StarUpdatingEvent fired (before update)
+   ↓
+5. Rating updated
+   ↓
+6. StarUpdatedEvent fired (after update)
+   ↓
+7. User removes rating
+   ↓
+8. StarRemovingEvent fired (before deletion)
+   ↓
+9. Rating deleted
+   ↓
+10. StarRemovedEvent fired (after deletion)
+```
+
+## Quick Example
+
+```php
+use JobMetric\Star\Events\StarAddEvent;
+use JobMetric\Star\Events\StarUpdatedEvent;
+use JobMetric\Star\Events\StarRemovedEvent;
+use Illuminate\Support\Facades\Event;
+
+// Listen to rating added event
+Event::listen(StarAddEvent::class, function (StarAddEvent $event) {
+    $star = $event->star;
+    
+    // Send notification
+    if ($star->starable->author) {
+        $star->starable->author->notify(
+            new NewRatingNotification($star)
+        );
+    }
+    
+    // Update cache
+    Cache::forget("ratings.{$star->starable_type}.{$star->starable_id}");
+});
+
+// Listen to rating updated event
+Event::listen(StarUpdatedEvent::class, function (StarUpdatedEvent $event) {
+    $star = $event->star;
+    
+    // Update cache
+    Cache::forget("ratings.{$star->starable_type}.{$star->starable_id}");
+});
+```
+
+## Related Documentation
+
+- <Link to="/packages/laravel-star/deep-diving/has-star">HasStar</Link>
+- <Link to="/packages/laravel-star/deep-diving/can-star">CanStar</Link>
+- <Link to="/packages/laravel-star/deep-diving/models/star">Star Model</Link>
+

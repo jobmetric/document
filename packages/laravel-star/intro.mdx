@@ -1,0 +1,132 @@
+---
+sidebar_position: 1
+sidebar_label: Getting Started
+---
+
+import Link from "@docusaurus/Link";
+
+# Build Star Ratings. Simply and Powerfully.
+
+**Laravel Star** is a modern, flexible package that allows your Eloquent models to handle star rating functionality (e.g., 1 to 5 stars). It provides a clean API for both **starable** models (e.g., articles, products) and **starrer** models (e.g., users, devices), making it easy to implement rating systems in your Laravel applications.
+
+## Why Laravel Star?
+
+### Simple API
+
+Laravel Star provides a clean, intuitive API for managing star ratings. Add, update, remove, and query ratings with simple method calls—no complex queries or manual relationship management.
+
+### Flexible Rating Scale
+
+Support any rating scale you need: 1-5 stars, 0-10, or any custom range. The package is fully configurable to match your application's requirements.
+
+### Anonymous Ratings
+
+Support both authenticated user ratings and anonymous device-based ratings. Perfect for applications where users can rate without logging in, or where you need to track ratings by device.
+
+### Polymorphic Relationships
+
+Use star ratings on any Eloquent model through polymorphic relationships. Products, articles, reviews, services—anything can be starable, and any model can be a starrer.
+
+### Event System
+
+Built-in events for rating lifecycle: `StarAddEvent`, `StarUpdatingEvent`, `StarUpdatedEvent`, `StarRemovingEvent`, and `StarRemovedEvent`. Integrate with notification systems, analytics, or any custom logic.
+
+### Rich Querying
+
+Query ratings by value, starrer, starable, device, and more. Get rating summaries, averages, counts, and lists with simple method calls.
+
+## What is Star Rating Management?
+
+Star rating management is the process of allowing users or devices to rate content using a numeric scale (typically 1-5 stars). Traditional approaches often involve:
+
+- Creating separate tables for each rating type
+- Writing complex queries to calculate averages
+- Managing rating state manually
+- Duplicating code across different models
+
+Laravel Star solves these challenges by providing:
+
+- **Unified System**: Single table for all star ratings
+- **Polymorphic Design**: Works with any model
+- **Simple API**: Clean methods for all operations
+- **Event Integration**: Built-in events for extensibility
+- **Query Helpers**: Easy methods for common queries
+
+## Key Features
+
+### HasStar Trait
+
+Add to models that can receive star ratings (products, articles, reviews, etc.). Provides methods to add, remove, update, and query ratings.
+
+### CanStar Trait
+
+Add to models that can give star ratings (users, devices, etc.). Provides methods to check rating status, get rating history, and manage ratings given.
+
+### Star Model
+
+The Eloquent model that stores all star ratings. Supports polymorphic relationships and includes automatic IP and device tracking.
+
+### Events
+
+Five events for rating lifecycle:
+- `StarAddEvent`: When a rating is added
+- `StarUpdatingEvent`: Before a rating is updated
+- `StarUpdatedEvent`: After a rating is updated
+- `StarRemovingEvent`: Before a rating is removed
+- `StarRemovedEvent`: After a rating is removed
+
+### Anonymous Support
+
+Track ratings by device ID for anonymous users, perfect for public-facing content where users don't need to log in.
+
+## Quick Example
+
+Here's a quick example of how easy it is to use star ratings:
+
+```php
+use JobMetric\Star\HasStar;
+use JobMetric\Star\CanStar;
+
+// Product model (can receive ratings)
+class Product extends Model
+{
+    use HasStar;
+}
+
+// User model (can give ratings)
+class User extends Model
+{
+    use CanStar;
+}
+
+// Usage
+$product = Product::find(1);
+$user = User::find(1);
+
+// Add a 5-star rating
+$product->addStar(5, $user);
+
+// Check if user rated the product
+$product->hasStar($user);
+
+// Get average rating
+$average = $product->starAvg();
+
+// Get rating count
+$count = $product->starCount();
+```
+
+## What Awaits You?
+
+In this documentation, you'll learn:
+
+- **Installation**: How to install and configure the package
+- **Basic Usage**: Adding star ratings to your models
+- **HasStar Trait**: Complete API for starable models
+- **CanStar Trait**: Complete API for starrer models
+- **Star Model**: Understanding the rating data structure
+- **Events**: Working with rating events
+- **Advanced Usage**: Complex scenarios and best practices
+
+Ready to get started? Let's <Link to="/packages/laravel-star/installation">install the package</Link> and begin adding star ratings to your application!
+
