@@ -2,6 +2,7 @@
 module.exports = {
   content: [
     './src/**/*.{js,jsx,ts,tsx,md,mdx}',
+    './packages/**/*.{js,jsx,ts,tsx,md,mdx}',
     './docusaurus.config.ts',
   ],
   darkMode: ['selector', '[data-theme="dark"]'],
