@@ -1,0 +1,64 @@
+---
+sidebar_position: 1
+sidebar_label: Getting Started
+---
+
+import Link from "@docusaurus/Link";
+
+# Manage Locations. Normalize Geography. Reuse Address Data.
+
+**Laravel Location** provides a structured, scalable way to model geographic data in Laravel: **Countries**, **Provinces**, **Cities**, **Districts**, **Locations**, **Geo Areas**, and **Addresses**.
+
+It is built for real-world systems where location data is shared across multiple modules and must remain consistent, normalized, and queryable.
+
+## Why Laravel Location?
+
+### A clean hierarchy
+
+Use a normalized hierarchy (**Country → Province → City → District**) and query it easily across your application.
+
+### Reusable “Location” records
+
+Locations are stored as **unique combinations** of (country, province, city, district). The package uses `firstOrCreate()` to prevent duplicates and ensure referential integrity.
+
+### Polymorphic attachments
+
+- Attach **Addresses** to any model via `HasAddress`
+- Attach **Geo Areas** to any model via `HasGeoArea`
+- Attach **Locations** as a single or multiple relation via `HasLocation`
+
+### Service-first API (with Facades)
+
+Work with a clean service layer using facades:
+`Country`, `Province`, `City`, `District`, `Location`, `GeoArea`, `Address`.
+
+## Ready to get started?
+
+<div className="grid grid-cols-2 gap-4 sm:gap-6 mt-6 sm:mt-8">
+  <Link
+    to="/packages/laravel-location/installation"
+    className="group bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-lg transition-all duration-300"
+  >
+    <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">⚙️</div>
+    <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors mb-2">
+      Installation
+    </h3>
+    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+      Install and configure Laravel Location in your project
+    </p>
+  </Link>
+
+  <Link
+    to="/packages/laravel-location/deep-diving/has-location"
+    className="group bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-lg transition-all duration-300"
+  >
+    <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">🚀</div>
+    <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors mb-2">
+      Quick Start
+    </h3>
+    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+      Start with HasLocation / HasAddress / HasGeoArea traits
+    </p>
+  </Link>
+</div>
+
