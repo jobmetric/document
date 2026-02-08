@@ -1,0 +1,147 @@
+---
+sidebar_position: 1
+sidebar_label: Getting Started
+---
+
+import Link from "@docusaurus/Link";
+
+# Convert Units. Scale Infinitely.
+
+**Laravel Unit Converter** is a comprehensive package that provides a powerful and flexible unit conversion system for Laravel applications. It enables you to define, manage, and convert between different measurement units—from weight and length to currency and temperature—with seamless model integration through the `HasUnit` trait. Stop manually handling unit conversions and start building applications that handle measurements professionally.
+
+## Why Laravel Unit Converter?
+
+### Complete Unit Management
+
+Laravel Unit Converter provides a complete solution for managing measurement units. Define units for weight, length, volume, temperature, currency, and over 30 other measurement types. Each unit type operates as an isolated conversion family with its own base unit, ensuring accurate conversions within the same measurement type.
+
+### Seamless Model Integration
+
+Integrate units directly with your Eloquent models through the `HasUnit` trait. Attach multiple unit types to any model—a product can have weight, dimensions, and volume simultaneously. The trait handles all the complexity of storing, retrieving, and converting unit values.
+
+### Powerful Conversion Engine
+
+Convert values between units of the same type with a simple method call. The conversion engine uses a base-unit-relative system where all units are defined relative to a base unit (value = 1), ensuring precise conversions even between obscure units.
+
+### Translation Support Built-In
+
+Units support full translation with the ability to localize names, codes, positions, and descriptions. Perfect for multilingual applications where unit names need to display in the user's preferred language.
+
+### Flexible Type System
+
+Choose from over 30 built-in unit types including weight, length, currency, volume, temperature, area, pressure, speed, energy, power, data storage, and many more. The enum-based type system ensures type safety and prevents invalid unit combinations.
+
+## What is Unit Conversion?
+
+Unit conversion is the process of transforming a measurement from one unit to another within the same type of measurement. For example, converting kilograms to grams or meters to centimeters.
+
+Laravel Unit Converter simplifies this process by:
+
+- **Base Unit System**: Each unit type has a base unit with value = 1. All other units are defined relative to this base unit.
+- **Type Isolation**: Units can only be converted within their own type (weight to weight, length to length).
+- **Automatic Calculations**: The conversion formula `result = input_value * from_unit.value / to_unit.value` is handled automatically.
+- **Model Binding**: Attach units to models with values, and retrieve converted values on demand.
+
+## Key Features
+
+### Unit CRUD Operations
+
+Create, read, update, and delete units through a clean service-based API. Each unit belongs to a type, has a conversion value, and supports translations for multilingual applications.
+
+### HasUnit Trait
+
+The core trait that adds unit functionality to any Eloquent model. Store unit values, retrieve them with automatic conversion, and query models by their unit attributes.
+
+### Artisan Commands
+
+Built-in commands for listing units, converting values from the command line, seeding default units, and exporting unit data. Perfect for development, testing, and administrative tasks.
+
+### Event System
+
+Unit operations trigger Laravel events, allowing you to hook into the unit lifecycle for custom logic, logging, or notifications.
+
+### Query Scopes
+
+Use query scopes to filter models by their unit attributes. Find all products with a specific weight unit, or filter by value ranges within a unit type.
+
+### Batch Operations
+
+Store or update multiple unit values in a single operation, improving performance for bulk updates.
+
+## Quick Example
+
+See how easy it is to work with units:
+
+```php
+use JobMetric\UnitConverter\Facades\UnitConverter;
+use JobMetric\UnitConverter\HasUnit;
+
+class Product extends Model
+{
+    use HasUnit;
+
+    protected array $unitables = [
+        'weight' => 'weight',
+        'length' => 'length',
+        'width' => 'length',
+        'height' => 'length',
+    ];
+}
+
+// Create a unit (e.g., kilogram)
+UnitConverter::store([
+    'type' => 'weight',
+    'value' => 1000, // relative to gram (base unit)
+    'status' => true,
+    'translation' => [
+        'en' => ['name' => 'Kilogram', 'code' => 'kg'],
+        'fa' => ['name' => 'کیلوگرم', 'code' => 'kg'],
+    ],
+]);
+
+// Store unit values on a product
+$product = Product::find(1);
+$product->storeUnit('weight', $kilogramId, 2.5); // 2.5 kg
+$product->storeUnit('length', $centimeterId, 100); // 100 cm
+
+// Retrieve with conversion
+$weightInGrams = $product->getUnit('weight', $gramId);
+// Returns: ['unit' => Unit, 'value' => 2500, 'translation' => [...]]
+
+// Convert directly
+$converted = UnitConverter::convert($kilogramId, $gramId, 2.5);
+// Returns: 2500.0
+```
+
+## Ready to Get Started?
+
+Laravel Unit Converter is ready to bring professional unit management to your Laravel projects.
+
+<div className="grid grid-cols-2 gap-4 sm:gap-6 mt-6 sm:mt-8">
+  <Link
+    to="/packages/laravel-unit-converter/installation"
+    className="group bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-lg transition-all duration-300"
+  >
+    <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">⚙️</div>
+    <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors mb-2">
+      Installation
+    </h3>
+    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+      Install and configure Laravel Unit Converter in your project
+    </p>
+  </Link>
+
+  <Link
+    to="/packages/laravel-unit-converter/deep-diving/has-unit"
+    className="group bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-lg transition-all duration-300"
+  >
+    <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">🚀</div>
+    <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors mb-2">
+      Quick Start
+    </h3>
+    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+      Start with HasUnit trait to add unit support to your models
+    </p>
+  </Link>
+</div>
+
