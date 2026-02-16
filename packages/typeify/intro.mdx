@@ -1,0 +1,82 @@
+---
+sidebar_position: 1
+sidebar_label: Getting Started
+---
+
+import Link from "@docusaurus/Link";
+
+# Define Types. Attach Behavior. Scale Cleanly.
+
+**Typeify** simplifies how you define and manage type registries in Laravel. Stop scattering type configs and ad-hoc flags across your codebase—define named types once, attach labels, descriptions, import/export flags, and custom options through a single fluent API. One base class, composable traits, and the Laravel container as the single source of truth.
+
+## Why Typeify?
+
+### One Registry Per Concern
+
+Keep your type definitions normalized and queryable. Each subclass of `BaseType` is a single registry (e.g. post types, product types). Define types with unique keys, attach parameters via fluent methods, and read them anywhere in the request lifecycle.
+
+### Composable Behavior with Traits
+
+- **Labels & Descriptions** – Attach translatable label and description per type (`HasLabelType`, `HasDescriptionType`).
+- **Import / Export** – Enable import or export per type with a single flag (`HasImportType`, `HasExportType`).
+- **Hierarchical & List Options** – Mark types as hierarchical or control list UI via `HasHierarchicalType` and `HasListOptionType`.
+- **Driver Namespaces** – Register custom driver classes per type with `HasDriverNamespaceType`.
+
+Add only the traits you need. Your type classes stay thin and consistent.
+
+### Laravel-Native Storage
+
+All type data lives in the Laravel service container under the key returned by `typeName()`. The same definitions are available in controllers, APIs, admin panels, and CLI—no extra wiring.
+
+## What Awaits You?
+
+By adopting Typeify, you will:
+
+- **Reduce development time** – Focus on domain types instead of config plumbing
+- **Write cleaner code** – One registry per concern, fluent API, no scattered type checks
+- **Scale your type system** – Add traits and new types without breaking existing ones
+- **Stay Laravel-native** – Service container, `trans()` for labels/descriptions
+- **Empower consistency** – Same type definitions everywhere
+
+## Ready to Get Started?
+
+<div className="grid grid-cols-2 gap-4 sm:gap-6 mt-6 sm:mt-8">
+  <Link
+    to="/packages/typeify/installation"
+    className="group bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-lg transition-all duration-300"
+  >
+    <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">⚙️</div>
+    <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors mb-2">
+      Installation
+    </h3>
+    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+      Install and configure Typeify in your project
+    </p>
+  </Link>
+
+  <Link
+    to="/packages/typeify/deep-diving/base-type"
+    className="group bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-lg transition-all duration-300"
+  >
+    <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">🚀</div>
+    <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors mb-2">
+      BaseType
+    </h3>
+    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+      Define, select, and read type parameters
+    </p>
+  </Link>
+
+  <Link
+    to="/packages/typeify/showcase"
+    className="group bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-lg transition-all duration-300"
+  >
+    <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">✨</div>
+    <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors mb-2">
+      Showcase
+    </h3>
+    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+      Real-world examples: post types, product types, taxonomies, API, validation
+    </p>
+  </Link>
+</div>
