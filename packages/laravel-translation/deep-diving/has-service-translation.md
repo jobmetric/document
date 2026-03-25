@@ -386,5 +386,6 @@ Translatable fields are cached statically per model class. This means:
 ## See Also
 
 - <Link to="./has-translation">HasTranslation Trait</Link> - Model-level translation trait
+- <Link to="./translation-service">Translation Service</Link> - Shared service entry point for set-translation workflows
 - <Link to="./events">Translation Events</Link> - Events fired during translation operations
 
