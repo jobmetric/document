@@ -1,0 +1,79 @@
+---
+sidebar_position: 1
+sidebar_label: Getting Started
+---
+
+import Link from "@docusaurus/Link";
+
+# Build Better Laravel Packages, Faster.
+
+**Laravel Package Core** is a practical toolkit for package authors. Instead of rewriting common infrastructure in every package, you get a ready foundation for provider bootstrapping, reusable model traits, dynamic resource resolution, and standardized CRUD services.
+
+## Why Laravel Package Core?
+
+### One Foundation, Many Packages
+
+This package is designed to be the base layer for other Laravel packages. You can standardize the setup process, reduce duplication, and keep your package ecosystem consistent.
+
+### Production-Ready Building Blocks
+
+From helper functions and enum macros to dynamic morph resources and CRUD service patterns, each component solves a repeated real-world problem in package development.
+
+### Better Maintainability
+
+The provided abstractions reduce boilerplate and encourage a cleaner architecture. This improves readability and long-term maintenance across teams and projects.
+
+## What is Inside?
+
+- **PackageCoreServiceProvider**: fluent package registration (config, routes, migrations, views, assets, commands, container bindings)
+- **EnumMacros**: utility methods for enum-like access patterns
+- **ConsoleTools**: helpers for stub processing and file generation
+- **helpers.php**: shared runtime utility functions
+- **HasBooleanStatus**: model scopes for boolean status
+- **HasDynamicRelations**: register runtime relationships without changing package code
+- **ResourceResolveEvent**: global event to resolve resource representation by subject/context
+- **HasMorphResourceAttributes**: dynamic `<relation>_resource` attributes for `MorphTo` relations
+- **AbstractCrudService**: reusable CRUD service with hooks, events, resources, and responses
+
+## Who Should Use This Package?
+
+- Laravel package authors who maintain multiple packages
+- Teams that want consistent package architecture
+- Developers who need reusable CRUD and resource patterns
+- Projects that rely heavily on polymorphic relations
+
+## Documentation Path
+
+1. Read [Installation](/packages/laravel-package-core/installation)
+2. Review practical examples in [Showcase](/packages/laravel-package-core/showcase)
+3. Dive into complete API references in the Deep Diving section
+
+## Quick Jump
+
+<div className="grid grid-cols-2 gap-4 sm:gap-6 mt-6 sm:mt-8">
+  <Link
+    to="/packages/laravel-package-core/installation"
+    className="group bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-lg transition-all duration-300"
+  >
+    <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">⚙️</div>
+    <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors mb-2">
+      Installation
+    </h3>
+    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+      Install and wire Laravel Package Core into your project.
+    </p>
+  </Link>
+
+  <Link
+    to="/packages/laravel-package-core/deep-diving/package-core-service-provider"
+    className="group bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-lg transition-all duration-300"
+  >
+    <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">🚀</div>
+    <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors mb-2">
+      Deep Diving
+    </h3>
+    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+      Explore all modules and implementation details.
+    </p>
+  </Link>
+</div>
