@@ -1,0 +1,74 @@
+---
+sidebar_position: 1
+sidebar_label: Getting Started
+---
+
+import Link from "@docusaurus/Link";
+
+# Roles, Memberships, Permissions. Built for Scale.
+
+**Rolix** gives Laravel applications a consistent access-control core. Stop scattering ad-hoc permission checks across modules and start managing hierarchical roles, scoped memberships, and file-based permissions with Gate, middleware, Blade, and DomainEvent support.
+
+## Why Rolix?
+
+### Complete Freedom in Access Design
+
+Model system-wide roles and tenant-scoped memberships in the same package. Use collections, owner shortcuts, super roles, and allow/deny wildcards to match real product rules.
+
+### Unmatched Speed for Authorization Checks
+
+Permission evaluation is memoized on the personable model for the current request and can be stored in Laravel Cache with versioned invalidation when memberships or roles change.
+
+### Unlimited Flexibility
+
+Register role types, rule evaluators, and permission files from your app or other packages. Hook into DomainEvents for automation and keep an activity log for audits.
+
+## Core Concepts
+
+| Concept | Meaning |
+|---------|---------|
+| **Role** | Named allow/deny set, optional hierarchy and rules |
+| **Membership** | Personable ↔ role link in system or memberable scope |
+| **Permission** | String key from permission files (`hero.view`, `hero.*`) |
+| **Role type** | Registry key (`system`, `tenant`, …) with options |
+| **Rule evaluator** | Runtime driver that can veto a role |
+
+## What Awaits You?
+
+By adopting Rolix, you will:
+
+- **Centralize RBAC** — roles, memberships, and permissions in one package
+- **Support multi-tenancy** — memberable contexts, collections, and owners
+- **Integrate with Laravel** — Gate, middleware, Blade, and helpers
+- **Stay extensible** — registries, DomainEvents, and permission path events
+- **Stay auditable** — activity logs for role and membership lifecycle
+
+## Ready to Get Started?
+
+<div className="grid grid-cols-2 gap-4 sm:gap-6 mt-6 sm:mt-8">
+  <Link
+    to="/packages/rolix/installation"
+    className="group bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-lg transition-all duration-300"
+  >
+    <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">⚙️</div>
+    <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors mb-2">
+      Installation
+    </h3>
+    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+      Install and configure Rolix in your project
+    </p>
+  </Link>
+
+  <Link
+    to="/packages/rolix/deep-diving/has-role"
+    className="group bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:shadow-lg transition-all duration-300"
+  >
+    <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">🚀</div>
+    <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-light transition-colors mb-2">
+      HasRole
+    </h3>
+    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+      Add permission checks to your personable models
+    </p>
+  </Link>
+</div>

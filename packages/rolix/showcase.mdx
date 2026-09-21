@@ -1,0 +1,108 @@
+---
+sidebar_position: 3
+sidebar_label: Showcase
+---
+
+# Rolix Showcase
+
+## Understanding the Building Blocks
+
+Rolix evaluates access from three layers:
+
+1. **Membership** — does this person have a role in this scope?
+2. **Role** — what allow/deny lists (and ancestors) apply after rules pass?
+3. **Permission key** — does the requested string match allow, and not deny?
+
+Super roles grant everything. Owner memberships grant everything **inside one memberable context**.
+
+## Multi-Tenant Workspace Example
+
+### Overview
+
+A SaaS app has global admins and per-tenant members. Users can hold a system role and one or more tenant memberships.
+
+### 1) Register a Tenant Role Type
+
+```php
+use JobMetric\Rolix\Facades\RoleTypeRegistry;
+use App\Models\Tenant;
+
+RoleTypeRegistry::register('tenant', [
+    'model' => Tenant::class,
+    'hierarchical' => true,
+    'label' => 'Tenant roles',
+]);
+```
+
+### 2) Create Roles
+
+```php
+use JobMetric\Rolix\Facades\Role;
+
+Role::store([
+    'type' => 'system',
+    'name' => 'Platform Admin',
+    'is_super' => true,
+]);
+
+Role::store([
+    'type' => 'tenant',
+    'name' => 'Tenant Manager',
+    'allow' => ['workspace.*', 'billing.view'],
+    'deny' => ['billing.refund'],
+]);
+```
+
+### 3) Attach Traits
+
+```php
+use JobMetric\Rolix\Traits\HasRole;
+use JobMetric\Rolix\Traits\HasMembers;
+
+class User extends Authenticatable
+{
+    use HasRole;
+}
+
+class Tenant extends Model
+{
+    use HasMembers;
+}
+```
+
+### 4) Assign Memberships
+
+```php
+$user->assignRole($platformAdmin); // system scope
+$tenant->assignMember($user, $tenantManager);
+```
+
+### 5) Check Access
+
+```php
+$user->hasPermission('workspace.settings', $tenant); // true for manager
+$user->hasPermission('billing.refund', $tenant);     // false (deny)
+Gate::allows('workspace.settings', [$tenant]);       // Gate before uses HasRole
+```
+
+### 6) Blade
+
+```blade
+@rolixCan('workspace.settings', $tenant)
+    <a href="{{ route('settings') }}">Settings</a>
+@endrolixCan
+```
+
+## Soft Delete Memberships
+
+```php
+use JobMetric\Rolix\Facades\Membership;
+
+Membership::destroy($membershipId);      // soft delete → permission lost
+Membership::restore($membershipId);      // restored → permission back
+Membership::forceDelete($membershipId);  // permanent
+```
+
+## Next
+
+Dive into [HasRole](/packages/rolix/deep-diving/has-role), [HasMembers](/packages/rolix/deep-diving/has-members), and [Gate / Middleware / Blade](/packages/rolix/deep-diving/gate-middleware-blade).
